@@ -1,0 +1,19 @@
+#include "Input.h"
+
+Square_equation get_input()
+{
+    printf("Enter coefficients of the square equation, separated by spaces\n");
+    while (1)
+    {
+        ld a = NAN, b = NAN, c = NAN;
+        int scan_cnt = scanf("%LG %LG %LG", &a, &b, &c);
+        if (scan_cnt != 3 or !isfinite(a) or !isfinite(b) or !isfinite(c))
+        {
+            printf("You entered invalid coefficients, please try again\n");
+        }
+        else
+        {
+            return Square_equation{a, b, c};
+        }
+    }
+}
