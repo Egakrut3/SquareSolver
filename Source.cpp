@@ -3,9 +3,11 @@
 //
 
 #include "Common.h"
+#include "Calculation_constants.h"
 #include "Input.h"
 #include "Solve.h"
 #include "Output.h"
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {

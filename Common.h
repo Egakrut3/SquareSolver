@@ -2,9 +2,6 @@
 #define COMMON_H
 
 #include <stdio.h>
-#include <math.h>
-#include <assert.h>
-#include <stdlib.h>
 
 typedef long double ld;
 
@@ -15,7 +12,10 @@ struct Square_equation
 
 enum Cnt_roots
 {
-    any_number_is_root = -1, no_roots = 0, one_root = 1, two_roots = 2
+    ANY_NUMBER_IS_ROOT = -1,
+    NO_ROOTS = 0,
+    ONE_ROOT = 1,
+    TWO_ROOTS = 2
 };
 
 struct Equation_roots

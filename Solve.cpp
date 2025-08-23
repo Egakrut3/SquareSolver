@@ -1,17 +1,7 @@
 #include "Solve.h"
-
-static ld eps = 1E-9;
-
-void set_eps(ld const new_eps)
-{
-    eps = new_eps;
-    return;
-}
-
-static inline int is_nil(ld const x)
-{
-    return fabsl(x) <= eps;
-}
+#include <assert.h>
+#include <math.h>
+#include "Calculation_constants.h"
 
 static Cnt_roots degenerate_solver(ld const a)
 {
@@ -19,10 +9,10 @@ static Cnt_roots degenerate_solver(ld const a)
 
     if (is_nil(a))
     {
-        return Cnt_roots::any_number_is_root;
+        return ANY_NUMBER_IS_ROOT;
     }
 
-    return Cnt_roots::no_roots;
+    return NO_ROOTS;
 }
 
 static Cnt_roots linear_solver(ld const a, ld const b, ld *const root1)
@@ -36,7 +26,7 @@ static Cnt_roots linear_solver(ld const a, ld const b, ld *const root1)
     }
 
     *root1 = -b / a;
-    return Cnt_roots::one_root;
+    return ONE_ROOT;
 }
 
 static Cnt_roots square_solver(ld const a, ld const b, ld const c, ld *const root1, ld *const root2)
@@ -54,18 +44,18 @@ static Cnt_roots square_solver(ld const a, ld const b, ld const c, ld *const roo
     if (is_nil(D2))
     {
         *root1 = -b / (2 * a);
-        return Cnt_roots::one_root;
+        return ONE_ROOT;
     }
 
     if (D2 < 0)
     {
-        return Cnt_roots::no_roots;
+        return NO_ROOTS;
     }
 
     ld const D = sqrtl(D2);
     *root1 = (-b - D) / (2 * a);
     *root2 = (-b + D) / (2 * a);
-    return Cnt_roots::two_roots;
+    return TWO_ROOTS;
 }
 
 Equation_roots solve(Square_equation const eq)

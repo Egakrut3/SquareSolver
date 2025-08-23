@@ -1,4 +1,5 @@
 #include "Input.h"
+#include <math.h>
 
 Square_equation get_input()
 {
@@ -9,6 +10,7 @@ Square_equation get_input()
         int scan_cnt = scanf("%LG %LG %LG", &a, &b, &c);
         if (scan_cnt != 3 or !isfinite(a) or !isfinite(b) or !isfinite(c))
         {
+            while (getchar() != '\n') {}
             printf("You entered invalid coefficients, please try again\n");
         }
         else
