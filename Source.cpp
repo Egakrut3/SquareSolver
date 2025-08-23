@@ -7,8 +7,12 @@
 #include "Solve.h"
 #include "Output.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1)
+    {
+        set_eps(strtold(argv[1], nullptr));
+    }
     make_output(solve(get_input()));
 
     return 0;

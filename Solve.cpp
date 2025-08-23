@@ -1,6 +1,12 @@
 #include "Solve.h"
 
-ld const eps = 1E-9;
+static ld eps = 1E-9;
+
+void set_eps(ld const new_eps)
+{
+    eps = new_eps;
+    return;
+}
 
 static inline int is_nil(ld const x)
 {

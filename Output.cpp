@@ -1,5 +1,4 @@
 #include "Output.h"
-#include <stdlib.h>
 
 void make_output(Equation_roots const roots)
 {
