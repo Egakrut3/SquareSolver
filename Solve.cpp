@@ -62,6 +62,5 @@ Equation_roots solve(Square_equation const eq)
 {
     ld root1 = NAN, root2 = NAN;
     const Cnt_roots cnt_roots = square_solver(eq.a, eq.b, eq.c, &root1, &root2);
-
     return Equation_roots{root1, root2, cnt_roots};
 }

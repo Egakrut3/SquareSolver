@@ -29,6 +29,7 @@ void make_output(Equation_roots const roots)
 
         default:
             abort();
+            
             break;
     }
 
