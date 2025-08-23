@@ -7,7 +7,7 @@
 #include "Solve.h"
 #include "Output.h"
 
-int main(int const argc, char const *const argv[])
+int main(int const argc, char *argv[])
 {
     set_config(argc, argv);
     make_output(solve(get_input()));

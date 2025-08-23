@@ -5,6 +5,21 @@
 
 typedef long double ld;
 
+enum User_error_code
+{
+    NO_ERROR,
+    NORMAL_TERMINATION,
+    UNKNOWN_OPTION,
+    INCORRECT_OPTION_ARGUMENT
+};
+
+struct User_error
+{
+    User_error_code code;
+    int data_size;
+    char **data;
+};
+
 struct Square_equation
 {
     ld a, b, c;
@@ -13,9 +28,9 @@ struct Square_equation
 enum Cnt_roots
 {
     ANY_NUMBER_IS_ROOT = -1,
-    NO_ROOTS = 0,
-    ONE_ROOT = 1,
-    TWO_ROOTS = 2
+    NO_ROOTS           = 0,
+    ONE_ROOT           = 1,
+    TWO_ROOTS          = 2
 };
 
 struct Equation_roots

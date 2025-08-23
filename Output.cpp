@@ -1,7 +1,6 @@
 #include "Output.h"
-#include <assert.h>
 #include <math.h>
-#include <stdlib.h>
+#include <assert.h>
 
 void make_output(Equation_roots const roots)
 {
@@ -28,8 +27,8 @@ void make_output(Equation_roots const roots)
             break;
 
         default:
-            abort();
-            
+            assert(0);
+
             break;
     }
 
