@@ -1,4 +1,5 @@
 #include "Output.h"
+#include <stdlib.h>
 
 void make_output(Equation_roots const roots)
 {
@@ -13,23 +14,19 @@ void make_output(Equation_roots const roots)
             break;
 
         case Cnt_roots::one_root:
-#ifdef _DEBUG
             assert(isfinite(roots.root1));
-#endif // _DEBUG
 
             printf("This equation has the one real root %LG", roots.root1);
             break;
 
         case Cnt_roots::two_roots:
-#ifdef _DEBUG
             assert(isfinite(roots.root1) and isfinite(roots.root2));
-#endif // _DEBUG
 
             printf("This equation has two real roots: %LG and %LG", roots.root1, roots.root2);
             break;
 
         default:
-            assert(0);
+            abort();
             break;
     }
 

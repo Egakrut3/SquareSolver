@@ -9,9 +9,7 @@ static inline int is_nil(ld const x)
 
 static Cnt_roots degenerate_solver(ld const a)
 {
-#ifdef _DEBUG
     assert(isfinite(a));
-#endif // _DEBUG
 
     if (is_nil(a))
     {
@@ -23,9 +21,7 @@ static Cnt_roots degenerate_solver(ld const a)
 
 static Cnt_roots linear_solver(ld const a, ld const b, ld *const root1)
 {
-#ifdef _DEBUG
     assert(isfinite(a) and isfinite(b) and root1);
-#endif // _DEBUG
 
     if (is_nil(a))
     {
@@ -39,9 +35,7 @@ static Cnt_roots linear_solver(ld const a, ld const b, ld *const root1)
 
 static Cnt_roots square_solver(ld const a, ld const b, ld const c, ld *const root1, ld *const root2)
 {
-#ifdef _DEBUG
     assert(isfinite(a) and isfinite(b) and isfinite(c) and root1 and root2);
-#endif // _DEBUG
 
     if (is_nil(a))
     {
