@@ -2,19 +2,14 @@
 //is_nil - checks whether real number equal 0 or not (taking into account the inaccuracy)
 //
 
-#include "Common.h"
-#include "Calculation_constants.h"
+#include "Flag_manager.h"
 #include "Input.h"
 #include "Solve.h"
 #include "Output.h"
-#include <stdlib.h>
 
-int main(int argc, char *argv[])
+int main(int const argc, char const *const argv[])
 {
-    if (argc > 1)
-    {
-        set_eps(strtold(argv[1], nullptr));
-    }
+    set_config(argc, argv);
     make_output(solve(get_input()));
 
     return 0;

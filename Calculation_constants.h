@@ -3,8 +3,8 @@
 
 #include "Common.h"
 
-void set_eps(ld const new_eps);
+void set_eps(ld const);
 
-int is_nil(ld const x);
+int is_nil(ld const);
 
 #endif

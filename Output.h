@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-void make_output(Equation_roots const roots);
+void make_output(Equation_roots const);
 
 #endif
