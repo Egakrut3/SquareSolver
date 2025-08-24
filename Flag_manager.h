@@ -3,6 +3,13 @@
 
 #include "Common.h"
 
-User_error set_config(int const, char *[]);
+//TODO - make error colector
+/*enum Set_config_return
+{
+    TO_CONTINUE,
+    TO_INTERRUPT
+};*/
+
+User_error set_config(int const, char const* const[]);
 
 #endif

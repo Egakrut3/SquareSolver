@@ -2,6 +2,7 @@
 #define COMMON_H
 
 #include <stdio.h>
+#include <assert.h>
 
 typedef long double ld;
 
@@ -10,14 +11,14 @@ enum User_error_code
     NO_ERROR,
     NORMAL_TERMINATION,
     UNKNOWN_OPTION,
-    INCORRECT_OPTION_ARGUMENT
+    INCORRECT_OPTION_ARGUMENT,
+    INVALID_ERROR
 };
 
 struct User_error
 {
     User_error_code code;
-    int data_size;
-    char **data;
+    char const *const *data;
 };
 
 struct Square_equation

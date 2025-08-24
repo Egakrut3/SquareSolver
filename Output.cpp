@@ -1,10 +1,9 @@
 #include "Output.h"
 #include <math.h>
-#include <assert.h>
 
 void make_output(Equation_roots const roots)
 {
-    switch(roots.cnt_roots)
+    switch (roots.cnt_roots)
     {
         case ANY_NUMBER_IS_ROOT:
             printf("Any number is the root of this equation");

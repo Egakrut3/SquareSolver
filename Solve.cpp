@@ -1,6 +1,5 @@
 #include "Solve.h"
 #include <math.h>
-#include <assert.h>
 #include "Calculation_constants.h"
 
 static Cnt_roots degenerate_solver(ld const a)
