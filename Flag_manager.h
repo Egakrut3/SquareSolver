@@ -10,6 +10,6 @@
     TO_INTERRUPT
 };*/
 
-User_error set_config(int const, char const* const[]);
+User_error set_config(int const, char const* const *const);
 
 #endif

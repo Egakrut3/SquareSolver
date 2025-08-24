@@ -17,9 +17,28 @@ enum User_error_code
 
 struct User_error
 {
+    char **data;
     User_error_code code;
-    char const *const *data;
+    int str_cnt, valid;
+
+    //Since I use dynamically allocated memeory
+    //in my struct, I must clear it by call
+    //"destruct_User_error", when I'm not going
+    //to use this variable anymore. However
+    //built-in assign-operator and copy-constructor,
+    //will dumbly copy pointers to my dynamic array.
+    //Because of this I must delete implementation
+    //of them and make my own function, which copy one
+    //object of struct to another.
+    User_error (User_error const &) = delete;
+    User_error &operator= (User_error const &) = delete;
 };
+
+User_error construct_User_error(User_error_code const, int const, ...);
+
+void destruct_User_error(User_error *const);
+
+void copy_User_error(User_error *const, User_error const *const);
 
 struct Square_equation
 {

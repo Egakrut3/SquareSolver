@@ -9,7 +9,7 @@ enum Option
     EPS_OPTION
 };
 
-static User_error set_help_config(char const *const **const str_ptr_ptr)
+[[nodiscard]] static User_error set_help_config(char const *const **const str_ptr_ptr)
 {
     assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--help"));
 
@@ -17,10 +17,10 @@ static User_error set_help_config(char const *const **const str_ptr_ptr)
            "\t%-10s %s\n" "\t%-10s %s\n",
            "--help", "Display the information",
            "--eps" , "Sets the value of eps (acceptable error)");
-    return User_error{NORMAL_TERMINATION, nullptr};
+    return construct_User_error(NORMAL_TERMINATION, 0);
 }
 
-static User_error set_eps_config(char const *const **const str_ptr_ptr)
+[[nodiscard]] static User_error set_eps_config(char const *const **const str_ptr_ptr)
 {
     assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--eps"));
 
@@ -31,16 +31,13 @@ static User_error set_eps_config(char const *const **const str_ptr_ptr)
 
     if (*last_ptr != '\0')
     {
-        //TODO - make assert
-        //assert(flag_ptr_ptr > 2);
-        //TODO - make own User_error data
-        return User_error{INCORRECT_OPTION_ARGUMENT, *str_ptr_ptr - 2};
+        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 2, "--eps", **str_ptr_ptr);
     }
 
-    return User_error{NO_ERROR, nullptr};
+    return construct_User_error(NO_ERROR, 0);
 }
 
-User_error set_config(int const argc, char const *const argv[])
+[[nodiscard]] User_error set_config(int const argc, char const *const *const argv)
 {
     assert(argc > 0 and argv);
 
@@ -48,26 +45,27 @@ User_error set_config(int const argc, char const *const argv[])
     {
         assert(str_ptr);
 
-        User_error new_option = {INVALID_ERROR, nullptr};
+        User_error new_option = construct_User_error(INVALID_ERROR, 0);
         if (!strcmp(*str_ptr, "--help"))
         {
-            new_option = set_help_config(&str_ptr);
+            copy_User_error(&new_option, &set_help_config(&str_ptr));
         }
         else if (!strcmp(*str_ptr, "--eps"))
         {
-            new_option = set_eps_config(&str_ptr);
+            copy_User_error(&new_option, &set_eps_config(&str_ptr));
         }
         else
         {
-            //TODO - make own User_error data
-            new_option = User_error{UNKNOWN_OPTION, str_ptr};
+            copy_User_error(&new_option, &construct_User_error(UNKNOWN_OPTION, 1, *str_ptr));
         }
 
         if (new_option.code != NO_ERROR)
         {
             return new_option;
         }
+
+        destruct_User_error(&new_option);
     }
 
-    return User_error{NO_ERROR, nullptr};
+    return construct_User_error(NO_ERROR, 0);
 }

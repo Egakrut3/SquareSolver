@@ -9,12 +9,14 @@
 #include "Solve.h"
 #include "Output.h"
 
-int main(int const argc, char const *const argv[])
+int main(int const argc, char **argv)
 {
-    if (handle_user_error(set_config(argc, argv)))
+    User_error cur_error = set_config(argc, argv);
+    if (handle_user_error(&cur_error))
     {
         return 0;
     }
+    destruct_User_error(&cur_error);
     make_output(solve(get_input()));
 
     return 0;
