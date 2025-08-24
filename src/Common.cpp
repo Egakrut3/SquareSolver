@@ -1,6 +1,8 @@
 #include "Common.h"
 #include <stdarg.h>
 #include <string.h>
+#include <math.h>
+#include "Calculation_constants.h"
 
 [[nodiscard]] User_error construct_User_error(User_error_code const code, int const str_cnt, ...)
 {
@@ -61,4 +63,40 @@ void copy_User_error (User_error *const to, User_error const *const from)
     }
 
     return;
+}
+
+int are_equal(Equation_roots const *const roots1, Equation_roots const *const roots2)
+{
+    assert(roots1 and roots2);
+
+    if (roots1->cnt_roots == roots2->cnt_roots)
+    {
+        switch (roots1->cnt_roots)
+        {
+            case ANY_NUMBER_IS_ROOT:
+            case NO_ROOTS:
+                [[fallthrough]]
+                return roots1->cnt_roots == roots2->cnt_roots;
+
+            case ONE_ROOT:
+                assert(isfinite(roots1->root1) and isfinite(roots2->root1));
+
+                return is_nil(roots1->root1 - roots2->root1);
+
+            case TWO_ROOTS:
+                assert(isfinite(roots1->root1) and isfinite(roots1->root2) and
+                       isfinite(roots2->root1) and isfinite(roots2->root2));
+
+                return is_nil(roots1->root1 - roots2->root1) and is_nil(roots1->root2 - roots2->root2) or
+                       is_nil(roots1->root1 - roots2->root2) and is_nil(roots1->root2 - roots2->root1);
+
+            default:
+                assert(0);
+                break;
+        }
+    }
+    else
+    {
+        return 0;
+    }
 }

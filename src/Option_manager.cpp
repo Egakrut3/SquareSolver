@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Calculation_constants.h"
+#include <math.h>
 
 enum Option
 {
@@ -30,16 +31,19 @@ enum Option
     }
 
     char *last_ptr = nullptr;
-    set_eps(strtold(**str_ptr_ptr, &last_ptr));
+    ld const new_eps = strtold(**str_ptr_ptr, &last_ptr);
 
     assert(last_ptr);
 
-    if (*last_ptr != '\0')
+    if (*last_ptr == '\0' and isfinite(new_eps) and new_eps >= 0)
+    {
+        set_eps(new_eps);
+        return construct_User_error(NO_ERROR, 0);
+    }
+    else
     {
         return construct_User_error(INCORRECT_OPTION_ARGUMENT, 2, "--eps", **str_ptr_ptr);
     }
-
-    return construct_User_error(NO_ERROR, 0);
 }
 
 [[nodiscard]] User_error set_config(int const argc, char const *const *const argv)

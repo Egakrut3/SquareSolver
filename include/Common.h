@@ -61,4 +61,12 @@ struct Equation_roots
     Cnt_roots cnt_roots;
 };
 
+int are_equal (Equation_roots const *const, Equation_roots const *const);
+
+struct Solve_test_instance
+{
+    Square_equation eq;
+    Equation_roots roots;
+};
+
 #endif

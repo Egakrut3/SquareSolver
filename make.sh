@@ -3,7 +3,7 @@ SRC_DIR="./src"
 INCLUDE_DIR="./include"
 
 SRC="$SRC_DIR/Common.cpp $SRC_DIR/Option_manager.cpp $SRC_DIR/User_error_handler.cpp \
-$SRC_DIR/Calculation_constants.cpp $SRC_DIR/Input.cpp $SRC_DIR/Solve.cpp $SRC_DIR/Output.cpp \
+$SRC_DIR/Calculation_constants.cpp $SRC_DIR/Solve_test.cpp $SRC_DIR/Input.cpp $SRC_DIR/Solve.cpp $SRC_DIR/Output.cpp \
 $SRC_DIR/Source.cpp"
 
 TARGET="quadratic"
@@ -16,4 +16,10 @@ FLAGS="-Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal
 -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE \
 -D__USE_MINGW_ANSI_STDIO"
 
+echo "Compilation start"
 $CXX $SRC -o $TARGET $FLAGS -I $INCLUDE_DIR
+echo "Compilation end"
+
+echo "Program start"
+./$TARGET.exe
+echo "Program end"

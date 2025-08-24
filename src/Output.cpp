@@ -1,9 +1,9 @@
 #include "Output.h"
 #include <math.h>
 
-void make_output(Equation_roots const roots)
+void make_output(Equation_roots const *const roots)
 {
-    switch (roots.cnt_roots)
+    switch (roots->cnt_roots)
     {
         case ANY_NUMBER_IS_ROOT:
             printf("Any number is the root of this equation");
@@ -14,15 +14,15 @@ void make_output(Equation_roots const roots)
             break;
 
         case ONE_ROOT:
-            assert(isfinite(roots.root1));
+            assert(isfinite(roots->root1));
 
-            printf("This equation has the one real root %LG", roots.root1);
+            printf("This equation has the one real root %LG", roots->root1);
             break;
 
         case TWO_ROOTS:
-            assert(isfinite(roots.root1) and isfinite(roots.root2));
+            assert(isfinite(roots->root1) and isfinite(roots->root2));
 
-            printf("This equation has two real roots: %LG and %LG", roots.root1, roots.root2);
+            printf("This equation has two real roots: %LG and %LG", roots->root1, roots->root2);
             break;
 
         default:
