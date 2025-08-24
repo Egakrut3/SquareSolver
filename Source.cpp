@@ -1,6 +1,4 @@
-//Solves square equation of form ax2 + bx + c = 0
-//is_nil - checks whether real number equal 0 or not (taking into account the inaccuracy)
-//
+//TODO - make documentation
 
 #include "Common.h"
 #include "Option_manager.h"
