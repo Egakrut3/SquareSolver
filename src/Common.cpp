@@ -5,7 +5,7 @@
 [[nodiscard]] User_error construct_User_error(User_error_code const code, int const str_cnt, ...)
 {
     char **data = (char **)calloc(str_cnt, sizeof(char *));
-    va_list arg_list = nullptr; //TODO - very strange
+    va_list arg_list = nullptr;
     va_start(arg_list, str_cnt);
     for (int i = 0; i < str_cnt; ++i)
     {
