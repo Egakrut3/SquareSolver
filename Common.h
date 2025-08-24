@@ -11,6 +11,7 @@ enum User_error_code
     NO_ERROR,
     NORMAL_TERMINATION,
     UNKNOWN_OPTION,
+    NOT_ENOUGH_OPTION_ARGUMENTS,
     INCORRECT_OPTION_ARGUMENT,
     INVALID_ERROR
 };
@@ -30,7 +31,8 @@ struct User_error
     //Because of this I must delete implementation
     //of them and make my own function, which copy one
     //object of struct to another.
-    User_error (User_error const &) = delete;
+
+    //User_error (User_error const &) = delete;
     User_error &operator= (User_error const &) = delete;
 };
 

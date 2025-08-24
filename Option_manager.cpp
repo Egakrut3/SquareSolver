@@ -1,4 +1,4 @@
-#include "Flag_manager.h"
+#include "Option_manager.h"
 #include <string.h>
 #include <stdlib.h>
 #include "Calculation_constants.h"
@@ -16,16 +16,21 @@ enum Option
     printf("Usage: square.exe [options] file...\nOptions:\n"
            "\t%-10s %s\n" "\t%-10s %s\n",
            "--help", "Display the information",
-           "--eps" , "Sets the value of eps (acceptable error)");
+           "--eps" , "Sets the value of eps (acceptable error) by followed parameter");
     return construct_User_error(NORMAL_TERMINATION, 0);
 }
 
-[[nodiscard]] static User_error set_eps_config(char const *const **const str_ptr_ptr)
+[[nodiscard]] static User_error set_eps_config(char const *const **const str_ptr_ptr, char const *const *const end_ptr)
 {
-    assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--eps"));
+    assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--eps") and end_ptr);
+
+    if (++*str_ptr_ptr == end_ptr)
+    {
+        return construct_User_error(NOT_ENOUGH_OPTION_ARGUMENTS, 1, "--eps");
+    }
 
     char *last_ptr = nullptr;
-    set_eps(strtold(*++*str_ptr_ptr, &last_ptr));
+    set_eps(strtold(**str_ptr_ptr, &last_ptr));
 
     assert(last_ptr);
 
@@ -41,22 +46,31 @@ enum Option
 {
     assert(argc > 0 and argv);
 
-    for (char const *const *str_ptr = argv + 1; str_ptr != argv + argc; ++str_ptr)
+    char const *const *const end_ptr = argv + argc;
+
+    for (char const *const *str_ptr = argv + 1; str_ptr != end_ptr; ++str_ptr)
     {
+        User_error new_option = construct_User_error(INVALID_ERROR, 0);
+
         assert(str_ptr);
 
-        User_error new_option = construct_User_error(INVALID_ERROR, 0);
         if (!strcmp(*str_ptr, "--help"))
         {
-            copy_User_error(&new_option, &set_help_config(&str_ptr));
+            User_error new_error = set_help_config(&str_ptr);
+            copy_User_error(&new_option, &new_error);
+            destruct_User_error(&new_error);
         }
         else if (!strcmp(*str_ptr, "--eps"))
         {
-            copy_User_error(&new_option, &set_eps_config(&str_ptr));
+            User_error new_error = set_eps_config(&str_ptr, end_ptr);
+            copy_User_error(&new_option, &new_error);
+            destruct_User_error(&new_error);
         }
         else
         {
-            copy_User_error(&new_option, &construct_User_error(UNKNOWN_OPTION, 1, *str_ptr));
+            User_error new_error = construct_User_error(UNKNOWN_OPTION, 1, *str_ptr);
+            copy_User_error(&new_option, &new_error);
+            destruct_User_error(&new_error);
         }
 
         if (new_option.code != NO_ERROR)

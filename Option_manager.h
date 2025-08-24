@@ -1,5 +1,5 @@
-#ifndef FLAG_MANAGER_H
-#define FLAG_MANAGER_H
+#ifndef OPTION_MANAGER_H
+#define OPTION_MANAGER_H
 
 #include "Common.h"
 

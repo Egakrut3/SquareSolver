@@ -52,6 +52,7 @@ static Cnt_roots square_solver(ld const a, ld const b, ld const c, ld *const roo
     }
 
     assert(D2 >= 0);
+    
     ld const D = sqrtl(D2);
     *root1 = (-b - D) / (2 * a);
     *root2 = (-b + D) / (2 * a);
