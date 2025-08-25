@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-Equation_roots solve(Square_equation const);
+Equation_roots solve(Square_equation const, int const);
 
 #endif

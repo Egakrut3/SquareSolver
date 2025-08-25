@@ -75,7 +75,6 @@ int are_equal(Equation_roots const *const roots1, Equation_roots const *const ro
         {
             case ANY_NUMBER_IS_ROOT:
             case NO_ROOTS:
-                [[fallthrough]]
                 return roots1->cnt_roots == roots2->cnt_roots;
 
             case ONE_ROOT:

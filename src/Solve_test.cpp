@@ -52,7 +52,7 @@ int make_Solve_test()
 
         for (int j = 0; j < SOLVE_TEST_CNT; ++j) //TODO possible unroll
         {
-            Equation_roots answer = solve(test_arr[j].eq);
+            Equation_roots answer = solve(test_arr[j].eq, 1);
             if (!are_equal(&answer, &test_arr[j].roots))
             {
                 printf("Test %LG * x2 + %LG * x + %LG with eps = %LG failed\n%-30s",

@@ -14,27 +14,35 @@ static Equation_roots degenerate_solver(ld const a)
     return Equation_roots{NAN, NAN, NO_ROOTS};
 }
 
-static Equation_roots linear_solver(ld const a, ld const b)
+static Equation_roots linear_solver(ld const a, ld const b, int const is_quiet)
 {
     assert(isfinite(a) and isfinite(b));
 
     if (is_nil(a))
     {
-        printf("Since coefficient before x equal 0, this equation is degenerate, not linear. Trying to solve it...\n");
+        if (!is_quiet)
+        {
+            printf("Since coefficient before x equal 0, this equation is degenerate, not linear. Trying to solve it...\n");
+        }
+
         return degenerate_solver(b);
     }
 
     return Equation_roots{-b / a, NAN, ONE_ROOT};
 }
 
-static Equation_roots square_solver(ld const a, ld const b, ld const c)
+static Equation_roots square_solver(ld const a, ld const b, ld const c, int const is_quiet)
 {
     assert(isfinite(a) and isfinite(b) and isfinite(c));
 
     if (is_nil(a))
     {
-        printf("Since coefficient before x2 equal 0, this equation is linear, not square. Trying to solve it...\n");
-        return linear_solver(b, c);
+        if (!is_quiet)
+        {
+            printf("Since coefficient before x2 equal 0, this equation is linear, not square. Trying to solve it...\n");
+        }
+
+        return linear_solver(b, c, is_quiet);
     }
 
     ld const D2 = b * b - 4 * a * c;
@@ -55,8 +63,7 @@ static Equation_roots square_solver(ld const a, ld const b, ld const c)
     return Equation_roots{(-b - D) / (2 * a), (-b + D) / (2 * a), TWO_ROOTS};
 }
 
-//TODO - make quiet in test-mode
-Equation_roots solve(Square_equation const eq) //TODO - possible delete
+Equation_roots solve(Square_equation const eq, int const is_quiet) //TODO - possible delete
 {
-    return square_solver(eq.a, eq.b, eq.c);
+    return square_solver(eq.a, eq.b, eq.c, is_quiet);
 }

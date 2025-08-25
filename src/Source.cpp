@@ -1,5 +1,6 @@
 //TODO - make file in-/out-put
 //TODO - make documentation
+//TODO - try to use scanf_s and printf_s
 
 #include "Common.h"
 #include "Option_manager.h"
@@ -28,7 +29,7 @@ int main(int const argc, char **argv)
 
 #endif
 
-    Equation_roots roots = solve(get_input());
+    Equation_roots roots = solve(get_input(), 0);
     make_output(&roots);
 
     return 0;
