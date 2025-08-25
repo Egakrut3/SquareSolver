@@ -1,6 +1,7 @@
 //TODO - make file in-/out-put
 //TODO - make documentation
 //TODO - try to use scanf_s and printf_s
+//TODO - use unsigned where possible
 
 #include "Common.h"
 #include "Option_manager.h"
