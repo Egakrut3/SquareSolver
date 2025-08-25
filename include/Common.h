@@ -1,6 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include "Colored_printf.h"
 #include <stdio.h>
 #include <assert.h>
 

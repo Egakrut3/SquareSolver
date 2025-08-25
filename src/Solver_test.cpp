@@ -72,7 +72,6 @@ int make_Solve_test()
     for (int i = 0; i < CNT_EPS; ++i)
     {
         set_eps(eps_test[i]);
-
         if (make_Solve_test_with_fixed_eps(eps_test[i]))
         {
             return 1;

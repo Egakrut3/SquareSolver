@@ -1,4 +1,4 @@
-//TODO - make file in-/out-put
+//TODO - make file in-/out- put
 //TODO - make documentation
 //TODO - try to use scanf_s and printf_s
 //TODO - use unsigned where possible
@@ -24,6 +24,8 @@
 
 int main(int const argc, char **argv)
 {
+    colored_printf(BLACK, "Hello world!\n");
+
 #ifdef _DEBUG
 
     if (make_Solve_test())

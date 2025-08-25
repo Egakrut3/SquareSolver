@@ -2,9 +2,9 @@ CXX="g++"
 SRC_DIR="./src"
 INCLUDE_DIR="./include"
 
-SRC="$SRC_DIR/Common.cpp $SRC_DIR/Option_manager.cpp $SRC_DIR/User_error_handler.cpp   \
-$SRC_DIR/Calculation_constants.cpp $SRC_DIR/Coefficient_scaner.cpp $SRC_DIR/Solver.cpp \
-$SRC_DIR/Solver_test.cpp $SRC_DIR/Roots_printer.cpp $SRC_DIR/Source.cpp"
+SRC="$SRC_DIR/Colored_printf.cpp $SRC_DIR/Common.cpp $SRC_DIR/Option_manager.cpp $SRC_DIR/User_error_handler.cpp    \
+$SRC_DIR/Calculation_constants.cpp $SRC_DIR/Coefficient_scaner.cpp $SRC_DIR/Solver.cpp $SRC_DIR/Solver_test.cpp \
+$SRC_DIR/Roots_printer.cpp $SRC_DIR/Source.cpp"
 
 TARGET="quadratic"
 
