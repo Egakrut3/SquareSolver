@@ -6,6 +6,8 @@
 
 [[nodiscard]] User_error construct_User_error(User_error_code const code, int const str_cnt, ...)
 {
+    assert(str_cnt >= 0);
+
     char **data = (char **)calloc(str_cnt, sizeof(char *));
     va_list arg_list = nullptr;
     va_start(arg_list, str_cnt);
@@ -20,15 +22,12 @@
 
 void destruct_User_error(User_error *const ptr)
 {
-    assert(ptr and ptr->valid);
+    assert(ptr and ptr->valid and ptr->data and ptr->str_cnt >= 0);
 
     ptr->valid = 0;
-
-    assert(ptr and ptr->data);
-
     for (int i = 0; i < ptr->str_cnt; ++i)
     {
-        assert(ptr->data[i]);
+        assert(ptr->data and ptr->data[i]);
 
         free(ptr->data[i]);
     }
@@ -43,7 +42,7 @@ void copy_User_error (User_error *const to, User_error const *const from)
 {
     destruct_User_error(to);
 
-    assert(from);
+    assert(to and from);
 
     if (from->valid)
     {
@@ -74,28 +73,29 @@ int are_equal(Equation_roots const *const roots1, Equation_roots const *const ro
         switch (roots1->cnt_roots)
         {
             case ANY_NUMBER_IS_ROOT:
-            case NO_ROOTS:
-                return roots1->cnt_roots == roots2->cnt_roots;
+            case DEGENERATE_NO_ROOTS:
+            case SQUARE_NO_ROOTS:
+                return 1;
 
-            case ONE_ROOT:
-                assert(isfinite(roots1->root1) and isfinite(roots2->root1));
+            case LINEAR_ONE_ROOT:
+            case SQUARE_ONE_ROOT:
+                assert(isfinite(roots1->root1) and isfinite(roots2->root1) and
+                       isnan(roots1->root2)    and isnan(roots2->root2));
 
                 return is_nil(roots1->root1 - roots2->root1);
 
-            case TWO_ROOTS:
+            case SQUARE_TWO_ROOTS:
                 assert(isfinite(roots1->root1) and isfinite(roots1->root2) and
                        isfinite(roots2->root1) and isfinite(roots2->root2));
 
-                return is_nil(roots1->root1 - roots2->root1) and is_nil(roots1->root2 - roots2->root2) or
-                       is_nil(roots1->root1 - roots2->root2) and is_nil(roots1->root2 - roots2->root1);
+                return (is_nil(roots1->root1 - roots2->root1) and is_nil(roots1->root2 - roots2->root2)) or
+                       (is_nil(roots1->root1 - roots2->root2) and is_nil(roots1->root2 - roots2->root1));
 
             default:
                 assert(0);
                 break;
         }
     }
-    else
-    {
-        return 0;
-    }
+
+    return 0;
 }

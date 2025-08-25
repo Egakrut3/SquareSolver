@@ -1,5 +1,5 @@
-#ifndef SOLVE_TEST
-#define SOLVE_TEST
+#ifndef SOLVER_TEST
+#define SOLVER_TEST
 
 #include "Common.h"
 

@@ -3,6 +3,8 @@
 
 #include "Common.h"
 
+ld const default_eps = 1E-9;
+
 void set_eps(ld const);
 
 int is_nil(ld const);

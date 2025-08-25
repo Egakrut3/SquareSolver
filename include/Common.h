@@ -27,10 +27,14 @@ struct User_error
     //"destruct_User_error", when I'm not going
     //to use this variable anymore. However
     //built-in assign-operator and copy-constructor,
-    //will dumbly copy pointers to my dynamic array.
-    //Because of this I must delete implementation
-    //of them and make my own function, which copy one
-    //object of struct to another.
+    //will sometimes implicitly copy pointers to my
+    //dynamic array to the unnamed variables and
+    //forget them after use, what may lead memory leaks.
+    //Because of this I must delete implementation of
+    //them, what is the use of C++ syntaxis in order to
+    //avoid features appeared only in C++, and make my
+    //own function, which copy one object of struct to
+    //another.
 
     //User_error (User_error const &) = delete;
     User_error &operator= (User_error const &) = delete;
@@ -49,10 +53,12 @@ struct Square_equation
 
 enum Cnt_roots
 {
-    ANY_NUMBER_IS_ROOT = -1,
-    NO_ROOTS           = 0,
-    ONE_ROOT           = 1,
-    TWO_ROOTS          = 2
+    ANY_NUMBER_IS_ROOT,
+    DEGENERATE_NO_ROOTS,
+    SQUARE_NO_ROOTS,
+    LINEAR_ONE_ROOT,
+    SQUARE_ONE_ROOT,
+    SQUARE_TWO_ROOTS
 };
 
 struct Equation_roots

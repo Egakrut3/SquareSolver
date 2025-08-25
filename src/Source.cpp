@@ -6,21 +6,24 @@
 #include "Common.h"
 #include "Option_manager.h"
 #include "User_error_handler.h"
-#include "Solve_test.h"
-#include "Input.h"
-#include "Solve.h"
-#include "Output.h"
+#include "Coefficient_scaner.h"
+#include "Solver.h"
+#include "Solver_test.h"
+#include "Roots_printer.h"
+
+#define HANDLE_USER_ERROR(__ERROR) do {   \
+    User_error cur_error = __ERROR;       \
+    if (handle_user_error(&cur_error))    \
+    {                                     \
+        destruct_User_error(&cur_error);  \
+        return 0;                         \
+    }                                     \
+                                          \
+    destruct_User_error(&cur_error);      \
+} while(0)
 
 int main(int const argc, char **argv)
 {
-    User_error cur_error = set_config(argc, argv);
-    if (handle_user_error(&cur_error))
-    {
-        destruct_User_error(&cur_error);
-        return 0;
-    }
-    destruct_User_error(&cur_error);
-
 #ifdef _DEBUG
 
     if (make_Solve_test())
@@ -30,8 +33,11 @@ int main(int const argc, char **argv)
 
 #endif
 
-    Equation_roots roots = solve(get_input(), 0);
-    make_output(&roots);
+    HANDLE_USER_ERROR(set_config(argc, argv));
+
+    Square_equation eq = scan_square_coefficients();
+    Equation_roots roots = solve(&eq);
+    print_roots(&roots);
 
     return 0;
 }

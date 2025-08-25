@@ -1,7 +1,7 @@
-#include "Input.h"
+#include "Coefficient_scaner.h"
 #include <math.h>
 
-Square_equation get_input()
+Square_equation scan_square_coefficients()
 {
     printf("Enter coefficients of the square equation, separated by spaces\n");
     while (1)
