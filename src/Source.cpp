@@ -41,5 +41,6 @@ int main(int const argc, char **argv)
     Equation_roots roots = solve(&eq);
     print_roots(&roots);
 
+    printf("COMMIT GITHUB");
     return 0;
 }
