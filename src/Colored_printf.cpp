@@ -4,7 +4,7 @@
 
 int colored_printf(Color const color, char const *const format, ...)
 {
-    printf("\033[0%dm", 30 + color); //TODO - strange 30
+    printf("\033[0%dm", 30 + color);
 
     va_list arg_list = nullptr;
     va_start(arg_list, format);
