@@ -21,8 +21,8 @@ TARGET = $(addprefix $(BIN_DIR), /square.exe)
 OBJ = /Colored_printf /Common /Calculation_constants /Option_manager /User_error_handler \
 	  /Coefficient_scaner /Solver /Solver_test /Roots_printer /Source
 
-make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1));       \
-@$(CXX) $(CXX_FLAGS) -c $(call make_src_path, $(1)) -I $(H_DIR) -o $(call make_bin_path, $(1)) #TODO - make header dependency
+make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \
+@$(CXX) $(CXX_FLAGS) -c $(call make_src_path, $(1)) -I $(H_DIR) -o $(call make_bin_path, $(1))
 
 .PHONY : all prepare clean
 
@@ -32,6 +32,8 @@ all : prepare $(call make_bin_path, $(OBJ))
 
 prepare :
 	@mkdir -p bin
+
+#TODO - don't works
 
 $(call make_object, /Colored_printf)
 
@@ -52,3 +54,6 @@ $(call make_object, /Solver_test)
 $(call make_object, /Roots_printer)
 
 $(call make_object, /Source)
+
+clean:
+	@rm -r bin
