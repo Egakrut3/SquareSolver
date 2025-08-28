@@ -1,6 +1,7 @@
-//TODO - make file in-/out- put
 //TODO - make documentation
+//TODO - no documentation for functions
 //TODO - use unsigned where possible
+//TODO - make file in-/out- put
 
 #include "Common.h"
 #include "Option_manager.h"

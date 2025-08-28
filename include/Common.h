@@ -17,6 +17,9 @@ enum User_error_code
     INVALID_ERROR
 };
 
+/*!
+    \brief Contains error of user
+*/
 struct User_error
 {
     char **data;

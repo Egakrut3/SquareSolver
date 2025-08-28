@@ -10,6 +10,12 @@
     TO_INTERRUPT
 };*/
 
-User_error set_config(int const, char const* const *const);
+/*!
+Parses command-line flags
+\param[in] argc Command-line flags count
+\param[in] argv Command-line flags themselves
+\return Information about error made by user (possible no error)
+*/
+User_error set_config(int const argc, char const* const *const argv);
 
 #endif
