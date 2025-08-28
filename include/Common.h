@@ -1,3 +1,5 @@
+/*! \file */
+
 #ifndef COMMON_H
 #define COMMON_H
 
@@ -5,8 +7,14 @@
 #include <stdio.h>
 #include <assert.h>
 
+/*!
+ *One-word exchange for long double
+ */
 typedef long double ld;
 
+/*!
+ *Contains errors that may occur because of user
+ */
 enum User_error_code
 {
     NO_ERROR,
@@ -17,9 +25,6 @@ enum User_error_code
     INVALID_ERROR
 };
 
-/*!
-    \brief Contains error of user
-*/
 struct User_error
 {
     char **data;
@@ -44,17 +49,40 @@ struct User_error
     User_error &operator= (User_error const &) = delete;
 };
 
-User_error construct_User_error(User_error_code const, int const, ...);
+/*!
+ *Extenranal constructor for User_error
 
-void destruct_User_error(User_error *const);
+ *\param[in] code A code of error
+ *\param[in] str_cnt Count of strings to be passed to User_error.data
+ *\param[in] others Strings to be passed to User_error.data themselves
+ 
+ *\return Constructed User_error
+ */
+User_error construct_User_error(User_error_code const code, int const str_cnt, ...);
 
-void copy_User_error(User_error *const, User_error const *const);
+/*!
+ *External destructor for User_error
+
+ *\param[in] ptr A pointer to User_error to be destructed
+ */
+void destruct_User_error(User_error *const ptr);
+
+/*!
+ *External "assignement operator" for User_error
+
+ *\param[out] to A pointer to destination User_error
+ *\param[in] from A pointer to source User_error
+ */
+void copy_User_error(User_error *const to, User_error const *const from);
 
 struct Square_equation
 {
     ld a, b, c;
 };
 
+/*!
+ *Contains count of roots and reason explaining how that count was calculated
+ */
 enum Cnt_roots
 {
     ANY_NUMBER_IS_ROOT,
@@ -71,7 +99,15 @@ struct Equation_roots
     Cnt_roots cnt_roots;
 };
 
-int are_equal (Equation_roots const *const, Equation_roots const *const);
+/*!
+ *Checks whether two sets of roots are equal or not
+
+ *\param[in] roots1 The first set of roots
+ *\param[in] roots The second set of roots
+
+ *\return Returns 1 if sets considered equal and 0 otherwise
+ */
+int are_equal (Equation_roots const *const roots1, Equation_roots const *const roots2);
 
 struct Solve_test_instance
 {

@@ -1,7 +1,9 @@
 //TODO - make documentation
-//TODO - no documentation for functions
+//TODO - no documentation for structs
+//TODO - no explanation of enum values
 //TODO - use unsigned where possible
 //TODO - make file in-/out- put
+//TODO - Make colored printf library
 
 #include "Common.h"
 #include "Option_manager.h"
