@@ -24,7 +24,7 @@ OBJ = /Colored_printf /Common /Calculation_constants /Option_manager /User_error
 make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \
 @$(CXX) $(CXX_FLAGS) -c $(call make_src_path, $(1)) -I $(H_DIR) -o $(call make_bin_path, $(1))
 
-.PHONY : all prepare clean
+.PHONY : all prepare clean documentation
 
 all : prepare $(call make_bin_path, $(OBJ))
 	@$(CXX) $(CXX_FLAGS) $(call make_bin_path, $(OBJ)) -o $(TARGET)
@@ -56,4 +56,8 @@ $(call make_object, /Roots_printer)
 $(call make_object, /Source)
 
 clean:
-	@rm -r bin
+	@rm -rf bin
+	@rm -rf html
+
+documentation: Doxyfile
+	@doxygen Doxyfile

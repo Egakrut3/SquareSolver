@@ -80,7 +80,7 @@ static int8_t make_Solve_test_with_fixed_eps(ld const cur_eps)
             continue;
         }
 
-        printf("Test with number %d: %LG * x2 + %LG * x + %LG with eps = %LG failed\n%-30s", i,
+        printf("Test with number %zu: %LG * x2 + %LG * x + %LG with eps = %LG failed\n%-30s", i,
                 test_arr[i].eq.a, test_arr[i].eq.b, test_arr[i].eq.c,
                 cur_eps, "Calculated roots are:");
         print_roots(&answer);

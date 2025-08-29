@@ -6,6 +6,7 @@
 #include "Colored_printf.h"
 #include <stdio.h>
 #include <assert.h>
+#include <stdint.h>
 
 /*!
  *A macro to make infinite loop clearer
@@ -37,8 +38,8 @@ struct User_error
 {
     char **data;          ///<An array of strings containing information about error
     User_error_code code; ///<Code of an error
-    size_t str_cnt;       ///<Count strings in data
     uint8_t valid;        ///<Indicates whether this object is valid or not
+    size_t str_cnt;       ///<Count strings in data
 
     //Since I use dynamically allocated memeory
     //in my struct, I must clear it by call
@@ -58,7 +59,7 @@ struct User_error
     User_error &operator= (User_error const &) = delete;
 };
 
-User_error construct_User_error(User_error_code const, int const, ...);
+User_error construct_User_error(User_error_code const, size_t const, ...);
 
 void destruct_User_error(User_error *const);
 

@@ -78,7 +78,7 @@ static char const *const flag_option_arr[__OPTION_COUNT] = {
 /*!
  *An array containing pointers to setters of all options
  */
-static User_error const (*set_option_arr[__OPTION_COUNT]) (char const *const **const, char const *const *const) = {
+static User_error (*const set_option_arr[__OPTION_COUNT]) (char const *const **const, char const *const *const) = {
        &set_help_config,
        &set_eps_config,
 };
@@ -109,7 +109,7 @@ static User_error const (*set_option_arr[__OPTION_COUNT]) (char const *const **c
             {
                 User_error new_error = set_option_arr[i](&str_ptr, end_ptr);
                 copy_User_error(&new_option, &new_error);
-                destuct_User_error(&new_error);
+                destruct_User_error(&new_error);
                 break;
             }
         }

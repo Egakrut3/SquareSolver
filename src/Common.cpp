@@ -17,11 +17,9 @@
  */
 [[nodiscard]] User_error construct_User_error(User_error_code const code, size_t const str_cnt, ...)
 {
-    assert(str_cnt >= 0);
-
     if (!str_cnt)
     {
-        return User_error{nullptr, code, str_cnt, 1};
+        return User_error{nullptr, code, 1, str_cnt};
     }
 
     char **data = (char **)calloc(str_cnt, sizeof(char *));
@@ -41,7 +39,7 @@
         assert(data[i]);
     }
     va_end(arg_list);
-    return User_error{data, code, str_cnt, 1};
+    return User_error{data, code, 1, str_cnt};
 }
 
 /*!
@@ -51,7 +49,7 @@
  */
 void destruct_User_error(User_error *const ptr)
 {
-    assert(ptr and ptr->valid and ptr->str_cnt >= 0);
+    assert(ptr and ptr->valid);
 
     ptr->valid = 0;
     for (size_t i = 0; i < ptr->str_cnt; ++i)

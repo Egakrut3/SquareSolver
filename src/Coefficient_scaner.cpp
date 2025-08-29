@@ -11,7 +11,7 @@
 Square_equation scan_square_coefficients()
 {
     printf("Enter coefficients of the square equation, separated by white-space characters\n");
-    do_forever() huy
+    do_forever()
     {
         ld a = NAN, b = NAN, c = NAN;
         int scan_cnt = scanf("%LG %LG %LG", &a, &b, &c);

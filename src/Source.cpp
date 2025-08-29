@@ -32,7 +32,7 @@
  *\param[in] argc Count of command-line arguments
  *\param[in] argv Command-line arguments themselves
  */
-int main(size_t const argc, char **argv)
+int main(int const argc, char **argv)
 {
 #ifdef _DEBUG
 
