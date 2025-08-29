@@ -7,14 +7,14 @@
  */
 enum Color
 {
-    BLACK,
-    RED,
-    GREEN,
-    YELLOW,
-    BLUE,
-    MAGENTA,
-    CYAN,
-    WHITE
+    BLACK,   ///<Black color
+    RED,     ///<Red color
+    GREEN,   ///<Green color
+    YELLOW,  ///<Yellow color
+    BLUE,    ///<Blue color
+    MAGENTA, ///<Magenta color
+    CYAN,    ///<Cyan color
+    WHITE,   ///<White color
 };
 
 /*!
@@ -23,7 +23,7 @@ enum Color
  *\param[in] color The desired color for printf
  *\param[in] format The format to passed to printf
  *\param[in, out] other The arguments to passed to printf
- 
+
  *\return Returns value equal to value returned by printf
  */
 int colored_printf(Color const color, char const *const format, ...);

@@ -1,6 +1,4 @@
 //TODO - make documentation
-//TODO - no documentation for structs
-//TODO - no explanation of enum values
 //TODO - use unsigned where possible
 //TODO - make file in-/out- put
 //TODO - Make colored printf library
@@ -26,8 +24,6 @@
 
 int main(int const argc, char **argv)
 {
-    colored_printf(BLACK, "Hello world!\n");
-
 #ifdef _DEBUG
 
     if (make_Solve_test())
