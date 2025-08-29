@@ -8,6 +8,11 @@
 #include <assert.h>
 
 /*!
+ *A macro to make infinite loop clearer
+ */
+#define do_forever() for(;;)
+
+/*!
  *One-word exchange for long double
  */
 typedef long double ld;
@@ -32,8 +37,8 @@ struct User_error
 {
     char **data;          ///<An array of strings containing information about error
     User_error_code code; ///<Code of an error
-    int str_cnt;          ///<Count strings in data
-    int valid;            ///<Indicates whether this object is valid or not
+    size_t str_cnt;       ///<Count strings in data
+    uint8_t valid;        ///<Indicates whether this object is valid or not
 
     //Since I use dynamically allocated memeory
     //in my struct, I must clear it by call
@@ -53,31 +58,11 @@ struct User_error
     User_error &operator= (User_error const &) = delete;
 };
 
-/*!
- *Extenranal constructor for User_error
+User_error construct_User_error(User_error_code const, int const, ...);
 
- *\param[in] code A code of error
- *\param[in] str_cnt Count of strings to be passed to User_error.data
- *\param[in] others Strings to be passed to User_error.data themselves
+void destruct_User_error(User_error *const);
 
- *\return Constructed User_error
- */
-User_error construct_User_error(User_error_code const code, int const str_cnt, ...);
-
-/*!
- *External destructor for User_error
-
- *\param[in] ptr A pointer to User_error to be destructed
- */
-void destruct_User_error(User_error *const ptr);
-
-/*!
- *External "assignement operator" for User_error
-
- *\param[out] to A pointer to destination User_error
- *\param[in] from A pointer to source User_error
- */
-void copy_User_error(User_error *const to, User_error const *const from);
+void copy_User_error(User_error *const, User_error const *const);
 
 /*!
  *Contains coefficients of square equation
@@ -112,20 +97,15 @@ struct Equation_roots
     Cnt_roots cnt_roots; ///<Contains information about count of roots
 };
 
+int8_t are_equal(Equation_roots const *const, Equation_roots const *const);
+
 /*!
- *Checks whether two sets of roots are equal or not
-
- *\param[in] roots1 The first set of roots
- *\param[in] roots The second set of roots
-
- *\return Returns 1 if sets considered equal and 0 otherwise
+ *Contains a single test for solve function
  */
-int are_equal (Equation_roots const *const roots1, Equation_roots const *const roots2);
-
 struct Solve_test_instance
 {
-    Square_equation eq;
-    Equation_roots roots;
+    Square_equation eq;   ///<An equation to be solved
+    Equation_roots roots; ///<Correct roots of this equation
 };
 
 #endif

@@ -1,18 +1,32 @@
+/*! \file */
+
 #include "Option_manager.h"
 #include <string.h>
 #include <stdlib.h>
 #include "Calculation_constants.h"
 #include <math.h>
 
+/*!
+ *Contains options which user can configure from command-line
+ */
 enum Option
 {
-    HELP_OPTION,
-    EPS_OPTION
+    HELP_OPTION, ///<Corresponds to --help option
+    EPS_OPTION, ///<Corresponds to --eps option
+    __OPTION_COUNT, ///<Used to access to count of options
 };
 
-[[nodiscard]] static User_error set_help_config(char const *const **const str_ptr_ptr)
+/*!
+ *Parses --help option and its arguments
+
+ *\param[in, out] str_ptr_ptr A pointer to argv iterator from whose string parsing must start
+ *\param[in] end_ptr A pointer to last argv string
+
+ *\return Return User_error object containing information about error occured (possible no error)
+ */
+[[nodiscard]] static User_error set_help_config(char const *const **const str_ptr_ptr, char const *const *const end_ptr)
 {
-    assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--help"));
+    assert(str_ptr_ptr and *str_ptr_ptr and *str_ptr_ptr != end_ptr and !strcmp(**str_ptr_ptr, "--help") and end_ptr);
 
     printf("Usage: square.exe [options] file...\nOptions:\n"
            "\t%-10s %s\n" "\t%-10s %s\n",
@@ -21,9 +35,17 @@ enum Option
     return construct_User_error(NORMAL_TERMINATION, 0);
 }
 
+/*!
+ *Parses --eps option and its arguments
+
+ *\param[in, out] str_ptr_ptr A pointer to argv iterator from whose string parsing must start
+ *\param[in] end_ptr A pointer to last argv string
+
+ *\return Return User_error object containing information about error occured (possible no error)
+ */
 [[nodiscard]] static User_error set_eps_config(char const *const **const str_ptr_ptr, char const *const *const end_ptr)
 {
-    assert(str_ptr_ptr and *str_ptr_ptr and !strcmp(**str_ptr_ptr, "--eps") and end_ptr);
+    assert(str_ptr_ptr and *str_ptr_ptr and *str_ptr_ptr != end_ptr and !strcmp(**str_ptr_ptr, "--eps") and end_ptr);
 
     if (++*str_ptr_ptr == end_ptr)
     {
@@ -46,7 +68,30 @@ enum Option
     }
 }
 
-[[nodiscard]] User_error set_config(int const argc, char const *const *const argv)
+/*!
+ *An array containing write of all options
+ */
+static char const *const flag_option_arr[__OPTION_COUNT] = {
+       "--help",
+       "--eps",
+};
+/*!
+ *An array containing pointers to setters of all options
+ */
+static User_error const (*set_option_arr[__OPTION_COUNT]) (char const *const **const, char const *const *const) = {
+       &set_help_config,
+       &set_eps_config,
+};
+
+/*!
+ *Parses command-line flags
+
+ *\param[in] argc Command-line flags count
+ *\param[in] argv Command-line flags themselves
+
+ *\return Information about error made by user (possible no error)
+ */
+[[nodiscard]] User_error set_config(size_t const argc, char const *const *const argv)
 {
     assert(argc > 0 and argv);
 
@@ -58,19 +103,18 @@ enum Option
 
         assert(str_ptr);
 
-        if (!strcmp(*str_ptr, "--help"))
+        for (size_t i = 0; i < __OPTION_COUNT; ++i)
         {
-            User_error new_error = set_help_config(&str_ptr);
-            copy_User_error(&new_option, &new_error);
-            destruct_User_error(&new_error);
+            if (!strcmp(*str_ptr, flag_option_arr[i]))
+            {
+                User_error new_error = set_option_arr[i](&str_ptr, end_ptr);
+                copy_User_error(&new_option, &new_error);
+                destuct_User_error(&new_error);
+                break;
+            }
         }
-        else if (!strcmp(*str_ptr, "--eps"))
-        {
-            User_error new_error = set_eps_config(&str_ptr, end_ptr);
-            copy_User_error(&new_option, &new_error);
-            destruct_User_error(&new_error);
-        }
-        else
+
+        if (new_option.code == INVALID_ERROR)
         {
             User_error new_error = construct_User_error(UNKNOWN_OPTION, 1, *str_ptr);
             copy_User_error(&new_option, &new_error);
