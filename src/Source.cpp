@@ -13,7 +13,7 @@
 #include "Roots_printer.h"
 
 /*!
- *A macro to handle an error, destruct it and finish the program if necessary by one row
+ *A macros to handle an error, destruct it and finish the program if necessary by one row
  */
 #define HANDLE_USER_ERROR(__ERROR) do {   \
     User_error cur_error = __ERROR;       \

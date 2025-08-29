@@ -11,8 +11,8 @@
  */
 enum Option
 {
-    HELP_OPTION, ///<Corresponds to --help option
-    EPS_OPTION, ///<Corresponds to --eps option
+    HELP_OPTION,    ///<Corresponds to --help option
+    EPS_OPTION,     ///<Corresponds to --eps option
     __OPTION_COUNT, ///<Used to access to count of options
 };
 

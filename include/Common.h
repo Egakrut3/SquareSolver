@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 /*!
- *A macro to make infinite loop clearer
+ *A macros to make infinite loop clearer
  */
 #define do_forever() for(;;)
 
