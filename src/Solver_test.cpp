@@ -1,7 +1,6 @@
 /*! \file */
 
-//TODO -  make tests from file
-//TODO - Use fized size types
+//TODO -  Make tests from file
 
 #include "Solver_test.h"
 #include <math.h>

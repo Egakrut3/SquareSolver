@@ -33,7 +33,7 @@ all : prepare $(call make_bin_path, $(OBJ))
 prepare :
 	@mkdir -p bin
 
-#TODO - don't works
+#TODO - Don't works
 
 $(call make_object, /Colored_printf)
 
