@@ -1,10 +1,17 @@
+/*! \file */
+
 #include "Coefficient_scaner.h"
 #include <math.h>
 
+/*!
+ *Forms Square_equation object by coefficients from input stream
+
+ *\return Object of Square_equation corresponding to coefficients from input stream
+ */
 Square_equation scan_square_coefficients()
 {
     printf("Enter coefficients of the square equation, separated by white-space characters\n");
-    while (1)
+    do_forever()
     {
         ld a = NAN, b = NAN, c = NAN;
         int scan_cnt = scanf("%LG %LG %LG", &a, &b, &c);

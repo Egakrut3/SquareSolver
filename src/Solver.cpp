@@ -1,7 +1,16 @@
+/*! \file */
+
 #include "Solver.h"
 #include <math.h>
 #include "Calculation_constants.h"
 
+/*!
+ *Solves degenerate equation
+
+ *\param[in] a Coefficient before x^0
+
+ *\return Returns roots of this equation
+ */
 static Equation_roots degenerate_solver(ld const a)
 {
     assert(isfinite(a));
@@ -14,6 +23,14 @@ static Equation_roots degenerate_solver(ld const a)
     return Equation_roots{NAN, NAN, DEGENERATE_NO_ROOTS};
 }
 
+/*!
+ *Solves linear equation
+
+ *\param[in] a Coefficient before x^1
+ *\param[in] b Coefficient before x^0
+
+ *\return Returns roots of this equation
+ */
 static Equation_roots linear_solver(ld const a, ld const b)
 {
     assert(isfinite(a) and isfinite(b));
@@ -26,6 +43,15 @@ static Equation_roots linear_solver(ld const a, ld const b)
     return Equation_roots{-b / a, NAN, LINEAR_ONE_ROOT};
 }
 
+/*!
+ *Solves square equation
+
+ *\param[in] a Coefficient before x^2
+ *\param[in] b Coefficient before x^1
+ *\param[in] c Coefficient before x^0
+
+ *\return Returns roots of this equation
+ */
 static Equation_roots square_solver(ld const a, ld const b, ld const c)
 {
     assert(isfinite(a) and isfinite(b) and isfinite(c));
@@ -53,6 +79,13 @@ static Equation_roots square_solver(ld const a, ld const b, ld const c)
     return Equation_roots{(-b - D) / (2 * a), (-b + D) / (2 * a), SQUARE_TWO_ROOTS};
 }
 
+/*!
+ *Solves the not greater than square equation
+
+ *\param[in] eq A pointer to an equation to be solved
+
+ *\return Returns roots of this equation
+ */
 Equation_roots solve(Square_equation const *const eq)
 {
     assert(eq);

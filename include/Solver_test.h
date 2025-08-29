@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-int make_Solve_test();
+int8_t make_Solve_test();
 
 #endif

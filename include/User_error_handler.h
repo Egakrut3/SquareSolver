@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-int handle_user_error(User_error const* const);
+int8_t handle_user_error(User_error const* const);
 
 #endif

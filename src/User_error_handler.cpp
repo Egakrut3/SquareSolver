@@ -1,6 +1,15 @@
+/*! \file */
+
 #include "User_error_handler.h"
 
-int handle_user_error(User_error const *const error)
+/*!
+ *Handles an User_error object
+
+ *\param[in] error A pointer to an error to be handled
+
+ *\return Returns 1 if the program must be finished and 0 otherwise
+ */
+int8_t handle_user_error(User_error const *const error)
 {
     assert(error and error->valid);
 
