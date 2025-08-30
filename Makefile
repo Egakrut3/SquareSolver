@@ -22,7 +22,7 @@ OBJ = /Colored_printf /Common /Calculation_constants /Option_manager /User_error
 	  /Coefficient_scaner /Solver /Solver_test /Roots_printer /Source
 
 make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \
-@$(CXX) $(CXX_FLAGS) -c $(call make_src_path, $(1)) -I $(H_DIR) -o $(call make_bin_path, $(1))
+@$(CXX) $(CXX_FLAGS) -c $$< -I $(H_DIR) -o $$@
 
 .PHONY : all prepare clean documentation
 
