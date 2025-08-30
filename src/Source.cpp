@@ -32,7 +32,7 @@
  */
 int main(int const argc, char const *const * const argv)
 {
-    Config cur_config = Config{0, 0, nullptr, false, true};
+    Config cur_config = Config{0, 0, nullptr, nullptr, nullptr, false, true};
     HANDLE_USER_ERROR(set_config(argc, argv, &cur_config));
 
 #ifdef _DEBUG
@@ -49,9 +49,10 @@ int main(int const argc, char const *const * const argv)
         return 0;
     }
 
-    Square_equation const eq = scan_square_coefficients();
+    Square_equation eq = Square_equation{0, 0, 0};
+    HANDLE_USER_ERROR(scan_square_coefficients(&eq, &cur_config));
     Equation_roots const roots = solve(&eq, &cur_config);
-    print_roots(&roots);
+    print_roots(&roots, &cur_config);
 
     destruct_Config(&cur_config);
     printf("\n\n\nCOMMIT GITHUB\n\n");

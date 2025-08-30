@@ -30,11 +30,17 @@ bool handle_user_error(User_error const *const error_ptr)
             printf("\"%s\" option requires more arguments after itself\n", error_ptr->data[0]);
             return true;
 
-        case INCORRECT_OPTION_ARGUMENT:
+        case INVALID_OPTION_ARGUMENT:
             assert(error_ptr->data and error_ptr->data[0] and error_ptr->data[1] and error_ptr->data[2]);
 
             printf("In option \"%s\" argument \"%s\": %s\n",
                    error_ptr->data[0], error_ptr->data[1], error_ptr->data[2]);
+            return true;
+
+        case INVALID_INPUT:
+            assert(error_ptr->data and error_ptr->data[0]);
+
+            printf("You've entered invalid values: %s", error_ptr->data[0]);
             return true;
 
         default:

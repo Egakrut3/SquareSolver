@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-Square_equation scan_square_coefficients();
+User_error scan_square_coefficients(Square_equation *const, Config const *const);
 
 #endif

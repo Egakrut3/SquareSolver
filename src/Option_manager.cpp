@@ -13,6 +13,8 @@ enum Option
     HELP_OPTION,    ///<Corresponds to --help option
     EPS_OPTION,     ///<Corresponds to --eps option
     TEST_OPTION,    ///<Corresponds to --test option
+    IN_OPTION,      ///<Corresponds to --in option
+    OUT_OPTION,     ///<Corresponds to --out option
     __OPTION_COUNT, ///<Used to access to count of options
 };
 
@@ -34,10 +36,13 @@ enum Option
 
     config_ptr->is_help = true;
     printf("Usage: square.exe [options] file...\nOptions:\n"
-           "\t%-10s %s\n" "\t%-10s %s\n" "\t%-10s %s\n",
+           "\t%-10s %s\n""\t%-10s %s\n""\t%-10s %s\n""\t%-10s %s\n""\t%-10s %s\n",
            "--help", "Display the information",
            "--eps" , "Sets the value of eps (acceptable error) by followed parameter",
-           "--test", "Tells path to file containing test fo solve function by folowed parameter");
+           "--test", "Tells path to file containing test for solve function by folowed parameter",
+           "--in", "Tells path to input-file by folowed parameter. If none is specified, stdin be used",
+           "--out", "Tells path to output-file by folowed parameter. If none is specified, stdout be used"
+           );
     return construct_User_error(NO_ERROR, 0);
 }
 
@@ -74,7 +79,7 @@ enum Option
     }
     else
     {
-        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
+        return construct_User_error(INVALID_OPTION_ARGUMENT, 3,
                                     "--eps", **str_ptr, "Must be finite floating-point value");
     }
 }
@@ -97,7 +102,7 @@ enum Option
 
     if (!test_file)
     {
-        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
+        return construct_User_error(INVALID_OPTION_ARGUMENT, 3,
                                     "--test", path, "Can't open this file, probably it doesn't exist");
     }
 
@@ -126,14 +131,14 @@ enum Option
 
         if (check_input != 6 or !isfinite(a) or !isfinite(b) or !isfinite(c))
         {
-            return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
+            return construct_User_error(INVALID_OPTION_ARGUMENT, 3,
                                         "--test", path,
                                         "This file doesn't satisfy format of test: "
                                         "first value means count of tests, "
                                         "next values means tests themselves. "
-                                        "Each test consist of 3 finite floating-point values specifying "
+                                        "Each test consist of 3 finite floating-point numbers specifying "
                                         "coefficients of the equation, "
-                                        "2 floating-point values specifying correct roots of the "
+                                        "2 floating-point numbers specifying correct roots of the "
                                         "equation (possible NAN if corresponding root doesn't exist) and "
                                         "1 string specifying corresponding state of Cnt_roots enum");
         }
@@ -142,7 +147,7 @@ enum Option
         free(str_Cnt_roots);
         if (cnt_roots == __INVALID_COUNT)
         {
-            return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3, "--test", path,
+            return construct_User_error(INVALID_OPTION_ARGUMENT, 3, "--test", path,
                                         "This file contains invalid string in place where "
                                         "Cnt_roots state was expected");
         }
@@ -180,12 +185,89 @@ enum Option
 }
 
 /*!
+ *Parses --in option and its arguments
+
+ *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
+ *\param[in] end_str A pointer to last argv string
+ *\param[out] config_ptr A pointer to config object to be set
+
+ *\return Return User_error object containing information about error occured (possible no error)
+ */
+[[nodiscard]] static User_error set_in_config(char const *const **const str_ptr,
+                                                char const *const *const end_str,
+                                                Config *const config_ptr)
+{
+    assert(str_ptr and *str_ptr and *str_ptr != end_str and !strcmp(**str_ptr, "--in") and end_str and
+           config_ptr and config_ptr->is_valid);
+
+    if (++*str_ptr == end_str)
+    {
+        return construct_User_error(NOT_ENOUGH_OPTION_ARGUMENTS, 1, "--in");
+    }
+
+    if (config_ptr->input_stream and config_ptr->input_stream != stdin)
+    {
+        fclose(config_ptr->input_stream);
+    }
+
+    fopen_s(&config_ptr->input_stream, **str_ptr, "r");
+
+    if (config_ptr->input_stream)
+    {
+        return construct_User_error(NO_ERROR, 0);
+    }
+
+    return construct_User_error(INVALID_OPTION_ARGUMENT, 3,
+                                "--in", **str_ptr, "Can't open this file, probably it doesn't exist");
+}
+
+/*!
+ *Parses --out option and its arguments
+
+ *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
+ *\param[in] end_str A pointer to last argv string
+ *\param[out] config_ptr A pointer to config object to be set
+
+ *\return Return User_error object containing information about error occured (possible no error)
+ */
+[[nodiscard]] static User_error set_out_config(char const *const **const str_ptr,
+                                                char const *const *const end_str,
+                                                Config *const config_ptr)
+{
+    assert(str_ptr and *str_ptr and *str_ptr != end_str and !strcmp(**str_ptr, "--out") and end_str and
+           config_ptr and config_ptr->is_valid);
+
+    if (++*str_ptr == end_str)
+    {
+        return construct_User_error(NOT_ENOUGH_OPTION_ARGUMENTS, 1, "--out");
+    }
+
+    if (config_ptr->output_stream and config_ptr->output_stream != stdout)
+    {
+        fclose(config_ptr->output_stream);
+    }
+
+    fopen_s(&config_ptr->output_stream, **str_ptr, "w");
+
+    if (config_ptr->output_stream)
+    {
+        return construct_User_error(NO_ERROR, 0);
+    }
+
+    return construct_User_error(INVALID_OPTION_ARGUMENT, 3,
+                                "--out", **str_ptr, "Can't open this file, probably it doesn't exist");
+
+}
+
+/*!
  *An array containing write of all options
  */
 static char const *const flag_option_arr[__OPTION_COUNT] = {
        "--help",
        "--eps",
        "--test",
+       "--in",
+       "--out",
 };
 
 /*!
@@ -197,6 +279,8 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
        &set_help_config,
        &set_eps_config,
        &set_test_config,
+       &set_in_config,
+       &set_out_config,
 };
 
 /*!
@@ -290,6 +374,16 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
 
 #endif
 
+    }
+
+    if (!used_options[IN_OPTION])
+    {
+        config_ptr->input_stream = stdin;
+    }
+
+    if (!used_options[OUT_OPTION])
+    {
+        config_ptr->output_stream = stdout;
     }
 
     return construct_User_error(NO_ERROR, 0);

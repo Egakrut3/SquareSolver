@@ -25,7 +25,8 @@ enum User_error_code
     NO_ERROR,                    ///<No error occured
     UNKNOWN_OPTION,              ///<User specified unknown option
     NOT_ENOUGH_OPTION_ARGUMENTS, ///<User didn't specify enough argument for an option
-    INCORRECT_OPTION_ARGUMENT,   ///<User specified incorrect argument for an option
+    INVALID_OPTION_ARGUMENT,     ///<User specified invalid argument for an option
+    INVALID_INPUT,               ///<User entered invalid values
 };
 
 /*!
@@ -111,6 +112,8 @@ struct Config
     ld eps;                        ///<Contains eps value for calculations
     size_t test_arr_size;          ///<Contains size of array of tests
     Solve_test_instance *test_arr; ///<Array of tests itself
+    FILE *input_stream;            ///<An input stream
+    FILE *output_stream;           ///<An output stream
     bool is_help;                  ///<Contains flag whether this run of program is for help information or not
 
     bool is_valid;                 ///<Indicates whether this object is valid or not

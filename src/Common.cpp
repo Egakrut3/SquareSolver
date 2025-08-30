@@ -115,6 +115,16 @@ void destruct_Config(Config *const config_ptr)
 
     config_ptr->is_valid = false;
     free(config_ptr->test_arr);
+    if (config_ptr->input_stream and config_ptr->input_stream != stdin)
+    {
+        fclose(config_ptr->input_stream);
+    }
+    
+    if (config_ptr->output_stream and config_ptr->output_stream != stdout)
+    {
+        fclose(config_ptr->output_stream);
+    }
+
     return;
 }
 

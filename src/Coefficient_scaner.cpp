@@ -6,24 +6,20 @@
 /*!
  *Forms Square_equation object by coefficients from input stream
 
- *\return Returns object of Square_equation corresponding to coefficients from input stream
+ *\param[out] eq_ptr A pointer to square equation to be scanned
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
+
+ *\return Return User_error object containing information about error occured (possible no error)
  */
-Square_equation scan_square_coefficients() //TODO - possible make from file
+User_error scan_square_coefficients(Square_equation *const eq_ptr, Config const *const config_ptr) //TODO - possible make infinite loop when stdin
 {
-    printf("Enter coefficients of the square equation, separated by white-space characters\n");
-    do_forever() //TODO - possible not forever
+    assert(eq_ptr and config_ptr);
+
+    int const check_input = fscanf(config_ptr->input_stream, "%LG %LG %LG", &eq_ptr->a, &eq_ptr->b, &eq_ptr->c);
+    if (check_input == 3 or isfinite(eq_ptr->a) or isfinite(eq_ptr->b) or isfinite(eq_ptr->c))
     {
-        ld a = NAN, b = NAN, c = NAN;
-        int check_input = scanf("%LG %LG %LG", &a, &b, &c);
-        printf("You entered %LG %LG %LG\n", a, b, c);
-        if (check_input != 3 or !isfinite(a) or !isfinite(b) or !isfinite(c))
-        {
-            while (getchar() != '\n') {}
-            printf("You entered invalid coefficients please try again\n");
-        }
-        else
-        {
-            return Square_equation{a, b, c};
-        }
+        return construct_User_error(NO_ERROR, 0);
     }
+
+    return construct_User_error(INVALID_INPUT, 1, "Must contain 3 finite floating-point numbers");
 }

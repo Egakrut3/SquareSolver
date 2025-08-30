@@ -27,9 +27,9 @@ bool make_Solve_test(Config const *const config_ptr)
         printf("Test with number %zu: %LG * x2 + %LG * x + %LG with eps = %LG failed\n%-30s", i,
                 config_ptr->test_arr[i].eq.a, config_ptr->test_arr[i].eq.b, config_ptr->test_arr[i].eq.c,
                 config_ptr->eps, "Calculated roots are:");
-        print_roots(&answer);
+        print_roots(&answer, config_ptr);
         printf("%-30s", "Must be:");
-        print_roots(&config_ptr->test_arr[i].roots);
+        print_roots(&config_ptr->test_arr[i].roots, config_ptr);
         return true;
     }
 
