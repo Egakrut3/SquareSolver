@@ -3,7 +3,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "Colored_printf.h"
 #include <stdio.h>
 #include <assert.h>
 #include <stdint.h>
@@ -24,11 +23,9 @@ typedef long double ld;
 enum User_error_code
 {
     NO_ERROR,                    ///<No error occured
-    NORMAL_TERMINATION,          ///<No error occured, but program must be finished
     UNKNOWN_OPTION,              ///<User specified unknown option
     NOT_ENOUGH_OPTION_ARGUMENTS, ///<User didn't specify enough argument for an option
     INCORRECT_OPTION_ARGUMENT,   ///<User specified incorrect argument for an option
-    INVALID_ERROR,               ///<Error, that couldn't have occured
 };
 
 /*!
@@ -36,10 +33,11 @@ enum User_error_code
  */
 struct User_error
 {
+    size_t str_cnt;       ///<Count strings in data
     char **data;          ///<An array of strings containing information about error
     User_error_code code; ///<Code of an error
-    uint8_t valid;        ///<Indicates whether this object is valid or not
-    size_t str_cnt;       ///<Count strings in data
+
+    bool valid;           ///<Indicates whether this object is valid or not
 
     //Since I use dynamically allocated memeory
     //in my struct, I must clear it by call
@@ -50,7 +48,7 @@ struct User_error
     //dynamic array to the unnamed variables and
     //forget them after use, what may lead memory leaks.
     //Because of this I must delete implementation of
-    //them, what is the use of C++ syntaxis in order to
+    //them, what is the use of C++ syntaxis, in order to
     //avoid features appeared only in C++, and make my
     //own function, which copy one object of struct to
     //another.
@@ -62,8 +60,6 @@ struct User_error
 User_error construct_User_error(User_error_code const, size_t const, ...);
 
 void destruct_User_error(User_error *const);
-
-void copy_User_error(User_error *const, User_error const *const);
 
 /*!
  *Contains coefficients of square equation
@@ -85,8 +81,11 @@ enum Cnt_roots
     SQUARE_NO_ROOTS,     ///<Square equation has no roots, because discriminant less than 0
     LINEAR_ONE_ROOT,     ///<Linear equation has one root
     SQUARE_ONE_ROOT,     ///<Square equation has one root, since discriminant equal 0
-    SQUARE_TWO_ROOTS,    ///<Square equation
+    SQUARE_TWO_ROOTS,    ///<Square equation has two roots, since discriminant greater than 0
+    __INVALID_COUNT,     ///<This count can't be calculated
 };
+
+Cnt_roots strto_Cnt_roots(char const *const);
 
 /*!
  *Contains roots of an equation
@@ -98,8 +97,6 @@ struct Equation_roots
     Cnt_roots cnt_roots; ///<Contains information about count of roots
 };
 
-int8_t are_equal(Equation_roots const *const, Equation_roots const *const);
-
 /*!
  *Contains a single test for solve function
  */
@@ -108,5 +105,29 @@ struct Solve_test_instance
     Square_equation eq;   ///<An equation to be solved
     Equation_roots roots; ///<Correct roots of this equation
 };
+
+struct Config
+{
+    ld eps;                        ///<Contains eps value for calculations
+    size_t test_arr_size;          ///<Contains size of array of tests
+    Solve_test_instance *test_arr; ///<Array of tests itself
+    bool is_help;                  ///<Contains flag whether this run of program is for help information or not
+
+    bool is_valid;                 ///<Indicates whether this object is valid or not
+
+    //Identical to User_error case
+    Config& operator=(Config const&) = delete;
+};
+
+void destruct_Config(Config *const);
+
+/*!
+ *Value for eps (acceptable error) if user doesn't specify any
+ */
+static ld const default_eps = 1E-9;
+
+bool is_nil(ld const, Config const *const);
+
+bool are_equal(Equation_roots const *const, Equation_roots const *const, Config const *const);
 
 #endif
