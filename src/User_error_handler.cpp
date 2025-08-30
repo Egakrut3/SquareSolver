@@ -5,44 +5,41 @@
 /*!
  *Handles an User_error object
 
- *\param[in] error A pointer to an error to be handled
+ *\param[in] error_ptr A pointer to an error to be handled
 
- *\return Returns 1 if the program must be finished and 0 otherwise
+ *\return Returns true if the program must be finished and false otherwise
  */
-int8_t handle_user_error(User_error const *const error)
+bool handle_user_error(User_error const *const error_ptr)
 {
-    assert(error and error->valid);
+    assert(error_ptr and error_ptr->valid);
 
-    switch (error->code)
+    switch (error_ptr->code)
     {
         case NO_ERROR:
-            return 0;
-
-        case NORMAL_TERMINATION:
-            return 1;
+            return false;
 
         case UNKNOWN_OPTION:
-            assert(error->data and error->data[0]);
+            assert(error_ptr->data and error_ptr->data[0]);
 
-            printf("\"%s\" option is unknown\n", error->data[0]);
-            return 1;
+            printf("\"%s\" option is unknown\n", error_ptr->data[0]);
+            return true;
 
         case NOT_ENOUGH_OPTION_ARGUMENTS:
-            assert(error->data and error->data[0]);
+            assert(error_ptr->data and error_ptr->data[0]);
 
-            printf("\"%s\" option requires more arguments after itself\n", error->data[0]);
-            return 1;
+            printf("\"%s\" option requires more arguments after itself\n", error_ptr->data[0]);
+            return true;
 
         case INCORRECT_OPTION_ARGUMENT:
-            assert(error->data and error->data[0] and error->data[1]);
+            assert(error_ptr->data and error_ptr->data[0] and error_ptr->data[1] and error_ptr->data[2]);
 
-            printf("\"%s\" argument of option \"%s\" is incorrect in this place\n", error->data[1], error->data[0]);
-            return 1;
+            printf("In option \"%s\" argument \"%s\": %s\n",
+                   error_ptr->data[0], error_ptr->data[1], error_ptr->data[2]);
+            return true;
 
-        case INVALID_ERROR:
         default:
             assert(0);
 
-            return 1;
+            return true;
     }
 }
