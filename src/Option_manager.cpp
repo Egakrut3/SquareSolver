@@ -21,7 +21,7 @@ enum Option
 
  *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
  *\param[in] end_str A pointer to last argv string
- *\param[out] config_ptr A pointer to config object to be setted
+ *\param[out] config_ptr A pointer to config object to be set
 
  *\return Return User_error object containing information about error occured (possible no error)
  */
@@ -46,7 +46,7 @@ enum Option
 
  *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
  *\param[in] end_str A pointer to last argv string
- *\param[out] config_ptr A pointer to config object to be setted
+ *\param[out] config_ptr A pointer to config object to be set
 
  *\return Return User_error object containing information about error occured (possible no error)
  */
@@ -79,8 +79,16 @@ enum Option
     }
 }
 
+/*!
+ *Sets value of test_arr member of config_ptr by parsing file located by path
+
+ *\param[in] path A string containing path to file to be parsed
+ *\param[out] config_ptr A Config object to be set
+
+ *\return Return User_error object containing information about error occured (possible no error)
+ */
 [[nodiscard]] static User_error set_test_arr_from_file(char const *const path,
-                                                Config *const config_ptr)
+                                                       Config *const config_ptr)
 {
     assert(path and config_ptr);
 
@@ -90,7 +98,7 @@ enum Option
     if (!test_file)
     {
         return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
-                                    "--test", path, "Can't open this file or it doesn't exist");
+                                    "--test", path, "Can't open this file, probably it doesn't exist");
     }
 
     int check_input = 0;
@@ -109,9 +117,12 @@ enum Option
         ld a = NAN, b = NAN, c = NAN,
            root1 = NAN, root2 = NAN;
         char *str_Cnt_roots = (char *)calloc(30, sizeof(char));
+
+        assert(str_Cnt_roots);
+
         check_input = fscanf(test_file, "%LG%LG%LG%LG%LG%30s",
-               &a, &b, &c,
-               &root1, &root2, str_Cnt_roots);
+                             &a, &b, &c,
+                             &root1, &root2, str_Cnt_roots);
 
         if (check_input != 6 or !isfinite(a) or !isfinite(b) or !isfinite(c))
         {
@@ -149,7 +160,7 @@ enum Option
 
  *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
  *\param[in] end_str A pointer to last argv string
- *\param[out] config_ptr A pointer to config object to be setted
+ *\param[out] config_ptr A pointer to config object to be set
 
  *\return Return User_error object containing information about error occured (possible no error)
  */
@@ -176,6 +187,7 @@ static char const *const flag_option_arr[__OPTION_COUNT] = {
        "--eps",
        "--test",
 };
+
 /*!
  *An array containing pointers to setters of all options
  */
@@ -193,7 +205,7 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
  *\param[in, out] str_ptr A pointer to argv iterator from whose string parsing must start
  *\param[in] end_str A pointer to last argv string
  *\param[out] config_ptr A pointer to config object to be setted
- *\param[in] used_option Array that indicates whether an option has been used or not
+ *\param[out] used_option Array that indicates whether an option has been used or not
 
  *\return Return User_error object containing information about error occured (possible no error)
  */

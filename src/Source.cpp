@@ -1,10 +1,6 @@
 /*! \file */
 
-//TODO - Make file in-/out- put
 //TODO - Make colored printf library
-//TODO - Merge branches in git
-//TODO - check assert
-//TODO - check dynamic memory
 
 #include "Common.h"
 #include "Option_manager.h"

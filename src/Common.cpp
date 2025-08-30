@@ -53,12 +53,10 @@ void destruct_User_error(User_error *const error_ptr)
     error_ptr->valid = 0;
     for (size_t i = 0; i < error_ptr->str_cnt; ++i)
     {
-        assert(error_ptr->data);
+        assert(error_ptr->data and error_ptr->data[i]);
 
         free(error_ptr->data[i]);
     }
-
-    assert(error_ptr);
 
     free(error_ptr->data);
     return;
@@ -140,6 +138,7 @@ bool is_nil(ld const x, Config const *const config_ptr)
 
  *\param[in] roots1_ptr The first set of roots
  *\param[in] roots2_ptr The second set of roots
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
 
  *\return Returns true if sets considered equal and false otherwise
  */
@@ -148,37 +147,45 @@ bool are_equal(Equation_roots const *const roots1_ptr, Equation_roots const *con
 {
     assert(roots1_ptr and roots2_ptr);
 
-    if (roots1_ptr->cnt_roots == roots2_ptr->cnt_roots)
+    if (roots1_ptr->cnt_roots != roots2_ptr->cnt_roots)
     {
-        switch (roots1_ptr->cnt_roots)
-        {
-            case ANY_NUMBER_IS_ROOT:
-            case DEGENERATE_NO_ROOTS:
-            case SQUARE_NO_ROOTS:
-                return true;
-
-            case LINEAR_ONE_ROOT:
-            case SQUARE_ONE_ROOT:
-                assert(isfinite(roots1_ptr->root1) and isfinite(roots2_ptr->root1) and
-                       isnan(roots1_ptr->root2) and isnan(roots2_ptr->root2));
-
-                return is_nil(roots1_ptr->root1 - roots2_ptr->root1, config_ptr);
-
-            case SQUARE_TWO_ROOTS:
-                assert(isfinite(roots1_ptr->root1) and isfinite(roots1_ptr->root2) and
-                       isfinite(roots2_ptr->root1) and isfinite(roots2_ptr->root2));
-
-                return (is_nil(roots1_ptr->root1 - roots2_ptr->root1, config_ptr) and
-                        is_nil(roots1_ptr->root2 - roots2_ptr->root2, config_ptr)) or
-                       (is_nil(roots1_ptr->root1 - roots2_ptr->root2, config_ptr) and
-                        is_nil(roots1_ptr->root2 - roots2_ptr->root1, config_ptr));
-
-            case __INVALID_COUNT:
-            default:
-                assert(0);
-                break;
-        }
+        return false;
     }
+
+    switch (roots1_ptr->cnt_roots)
+    {
+        case ANY_NUMBER_IS_ROOT:
+        case DEGENERATE_NO_ROOTS:
+        case SQUARE_NO_ROOTS:
+            assert(isnan(roots1_ptr->root1) and isnan(roots1_ptr->root2) and
+                   isnan(roots2_ptr->root1) and isnan(roots2_ptr->root2));
+
+            return true;
+
+        case LINEAR_ONE_ROOT:
+        case SQUARE_ONE_ROOT:
+            assert(isfinite(roots1_ptr->root1) and isfinite(roots2_ptr->root1) and
+                    isnan(roots1_ptr->root2) and isnan(roots2_ptr->root2));
+
+            return is_nil(roots1_ptr->root1 - roots2_ptr->root1, config_ptr);
+
+        case SQUARE_TWO_ROOTS:
+            assert(isfinite(roots1_ptr->root1) and isfinite(roots1_ptr->root2) and
+                    isfinite(roots2_ptr->root1) and isfinite(roots2_ptr->root2));
+
+            return (is_nil(roots1_ptr->root1 - roots2_ptr->root1, config_ptr) and
+                    is_nil(roots1_ptr->root2 - roots2_ptr->root2, config_ptr)) or
+                    (is_nil(roots1_ptr->root1 - roots2_ptr->root2, config_ptr) and
+                    is_nil(roots1_ptr->root2 - roots2_ptr->root1, config_ptr));
+
+        case __INVALID_COUNT:
+        default:
+            assert(0);
+
+            break;
+    }
+
+    assert(0);
 
     return false;
 }

@@ -30,8 +30,8 @@ bool make_Solve_test(Config const *const config_ptr)
         print_roots(&answer);
         printf("%-30s", "Must be:");
         print_roots(&config_ptr->test_arr[i].roots);
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
