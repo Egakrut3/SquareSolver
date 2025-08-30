@@ -1,0 +1,64 @@
+\doxysection{src/\+Source.cpp File Reference}
+\hypertarget{_source_8cpp}{}\label{_source_8cpp}\index{src/Source.cpp@{src/Source.cpp}}
+{\ttfamily \#include "{}Common.\+h"{}}\newline
+{\ttfamily \#include "{}Option\+\_\+manager.\+h"{}}\newline
+{\ttfamily \#include "{}User\+\_\+error\+\_\+handler.\+h"{}}\newline
+{\ttfamily \#include "{}Coefficient\+\_\+scaner.\+h"{}}\newline
+{\ttfamily \#include "{}Solver.\+h"{}}\newline
+{\ttfamily \#include "{}Solver\+\_\+test.\+h"{}}\newline
+{\ttfamily \#include "{}Roots\+\_\+printer.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_source_8cpp_a751b8379a6c944ab89483b0547b77b69}{HANDLE\+\_\+\+USER\+\_\+\+ERROR}}(\+\_\+\+\_\+\+ERROR)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_source_8cpp_af7889d36a8acae4c30beb10792c40eb1}{main}} (int const argc, char const \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const argv)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{_source_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_source_8cpp_a751b8379a6c944ab89483b0547b77b69}\index{Source.cpp@{Source.cpp}!HANDLE\_USER\_ERROR@{HANDLE\_USER\_ERROR}}
+\index{HANDLE\_USER\_ERROR@{HANDLE\_USER\_ERROR}!Source.cpp@{Source.cpp}}
+\doxysubsubsection{\texorpdfstring{HANDLE\_USER\_ERROR}{HANDLE\_USER\_ERROR}}
+{\footnotesize\ttfamily \label{_source_8cpp_a751b8379a6c944ab89483b0547b77b69} 
+\#define HANDLE\+\_\+\+USER\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+\+ERROR}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{do}\ \{\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{struct_user__error}{User\_error}}\ cur\_error\ =\ \_\_ERROR;\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if\ (handle\_user\_error(\&cur\_error))\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ destruct\_User\_error(\&cur\_error);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ destruct\_User\_error(\&cur\_error);\ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\}\ \textcolor{keywordflow}{while}(\textcolor{keyword}{false})}
+
+\end{DoxyCode}
+A macros to handle an error, destruct it and finish the program if necessary by one row 
+
+\label{doc-func-members}
+\Hypertarget{_source_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_source_8cpp_af7889d36a8acae4c30beb10792c40eb1}\index{Source.cpp@{Source.cpp}!main@{main}}
+\index{main@{main}!Source.cpp@{Source.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_source_8cpp_af7889d36a8acae4c30beb10792c40eb1} 
+int main (\begin{DoxyParamCaption}\item[{int const}]{argc}{, }\item[{char const \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}const}]{argv}{}\end{DoxyParamCaption})}
+
+An entry point for the program
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em argc} & Count of command-\/line arguments \\
+\hline
+\mbox{\texttt{in}}  & {\em argv} & Command-\/line arguments themselves \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,260 @@
+\doxysection{include/\+Common.h File Reference}
+\hypertarget{_common_8h}{}\label{_common_8h}\index{include/Common.h@{include/Common.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_user__error}{User\+\_\+error}}
+\item 
+struct \mbox{\hyperlink{struct_square__equation}{Square\+\_\+equation}}
+\item 
+struct \mbox{\hyperlink{struct_equation__roots}{Equation\+\_\+roots}}
+\item 
+struct \mbox{\hyperlink{struct_solve__test__instance}{Solve\+\_\+test\+\_\+instance}}
+\item 
+struct \mbox{\hyperlink{struct_config}{Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_common_8h_a645813dd06cf86e0eb63aef24cf0c5c5}{do\+\_\+forever}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef long double \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\+\_\+error\+\_\+code}} \{ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94}{NO\+\_\+\+ERROR}}
+, \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3}{UNKNOWN\+\_\+\+OPTION}}
+, \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133}{NOT\+\_\+\+ENOUGH\+\_\+\+OPTION\+\_\+\+ARGUMENTS}}
+, \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348}{INCORRECT\+\_\+\+OPTION\+\_\+\+ARGUMENT}}
+ \}
+\item 
+enum \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots}} \{ \newline
+\mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0}{ANY\+\_\+\+NUMBER\+\_\+\+IS\+\_\+\+ROOT}}
+, \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081}{DEGENERATE\+\_\+\+NO\+\_\+\+ROOTS}}
+, \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d}{SQUARE\+\_\+\+NO\+\_\+\+ROOTS}}
+, \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a}{LINEAR\+\_\+\+ONE\+\_\+\+ROOT}}
+, \newline
+\mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4}{SQUARE\+\_\+\+ONE\+\_\+\+ROOT}}
+, \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6}{SQUARE\+\_\+\+TWO\+\_\+\+ROOTS}}
+, \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba296e16bd7bb5ff5b00fd45ced3221efd}{\+\_\+\+\_\+\+INVALID\+\_\+\+COUNT}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_user__error}{User\+\_\+error}} \mbox{\hyperlink{_common_8h_a87174d7756c5b34b5937e5119bdaf6ec}{construct\+\_\+\+User\+\_\+error}} (\mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\+\_\+error\+\_\+code}} const, size\+\_\+t const,...)
+\item 
+void \mbox{\hyperlink{_common_8h_a732b5f27948a587e2b4da737d69e5f3e}{destruct\+\_\+\+User\+\_\+error}} (\mbox{\hyperlink{struct_user__error}{User\+\_\+error}} \texorpdfstring{$\ast$}{*}const)
+\item 
+\mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots}} \mbox{\hyperlink{_common_8h_aab7955726b69cb5fc705ca77435cbe20}{strto\+\_\+\+Cnt\+\_\+roots}} (char const \texorpdfstring{$\ast$}{*}const)
+\item 
+void \mbox{\hyperlink{_common_8h_a84fe14fbb3436115064693cd7f9a75eb}{destruct\+\_\+\+Config}} (\mbox{\hyperlink{struct_config}{Config}} \texorpdfstring{$\ast$}{*}const)
+\item 
+bool \mbox{\hyperlink{_common_8h_a6d475f39ae9988ce0622f44b3a7a2108}{is\+\_\+nil}} (\mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}} const, \mbox{\hyperlink{struct_config}{Config}} const \texorpdfstring{$\ast$}{*}const)
+\item 
+bool \mbox{\hyperlink{_common_8h_ab5c7d928ae2d7d9b2c1c4ffb983f5765}{are\+\_\+equal}} (\mbox{\hyperlink{struct_equation__roots}{Equation\+\_\+roots}} const \texorpdfstring{$\ast$}{*}const, \mbox{\hyperlink{struct_equation__roots}{Equation\+\_\+roots}} const \texorpdfstring{$\ast$}{*}const, \mbox{\hyperlink{struct_config}{Config}} const \texorpdfstring{$\ast$}{*}const)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{_common_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_common_8h_a645813dd06cf86e0eb63aef24cf0c5c5}\index{Common.h@{Common.h}!do\_forever@{do\_forever}}
+\index{do\_forever@{do\_forever}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{do\_forever}{do\_forever}}
+{\footnotesize\ttfamily \label{_common_8h_a645813dd06cf86e0eb63aef24cf0c5c5} 
+\#define do\+\_\+forever(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for}(;;)}
+
+\end{DoxyCode}
+A macros to make infinite loop clearer 
+
+\label{doc-typedef-members}
+\Hypertarget{_common_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}\index{Common.h@{Common.h}!ld@{ld}}
+\index{ld@{ld}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{ld}{ld}}
+{\footnotesize\ttfamily \label{_common_8h_a09bfe86a130ac3370740e01ab26b8b48} 
+typedef long double \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}}
+
+One-\/word exchange for long double 
+
+\label{doc-enum-members}
+\Hypertarget{_common_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}\index{Common.h@{Common.h}!Cnt\_roots@{Cnt\_roots}}
+\index{Cnt\_roots@{Cnt\_roots}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{Cnt\_roots}{Cnt\_roots}}
+{\footnotesize\ttfamily \label{_common_8h_a3c2f8466a5fed12a8c214905ac19149b} 
+enum \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots}}}
+
+Contains count of roots and reason explaining how that count was calculated \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ANY\_NUMBER\_IS\_ROOT@{ANY\_NUMBER\_IS\_ROOT}!Common.h@{Common.h}}\index{Common.h@{Common.h}!ANY\_NUMBER\_IS\_ROOT@{ANY\_NUMBER\_IS\_ROOT}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0} 
+ANY\+\_\+\+NUMBER\+\_\+\+IS\+\_\+\+ROOT&Any number is root of trivial equation. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEGENERATE\_NO\_ROOTS@{DEGENERATE\_NO\_ROOTS}!Common.h@{Common.h}}\index{Common.h@{Common.h}!DEGENERATE\_NO\_ROOTS@{DEGENERATE\_NO\_ROOTS}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081} 
+DEGENERATE\+\_\+\+NO\+\_\+\+ROOTS&Degenerate equation has no roots. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SQUARE\_NO\_ROOTS@{SQUARE\_NO\_ROOTS}!Common.h@{Common.h}}\index{Common.h@{Common.h}!SQUARE\_NO\_ROOTS@{SQUARE\_NO\_ROOTS}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d} 
+SQUARE\+\_\+\+NO\+\_\+\+ROOTS&Square equation has no roots, because discriminant less than 0. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LINEAR\_ONE\_ROOT@{LINEAR\_ONE\_ROOT}!Common.h@{Common.h}}\index{Common.h@{Common.h}!LINEAR\_ONE\_ROOT@{LINEAR\_ONE\_ROOT}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a} 
+LINEAR\+\_\+\+ONE\+\_\+\+ROOT&Linear equation has one root. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SQUARE\_ONE\_ROOT@{SQUARE\_ONE\_ROOT}!Common.h@{Common.h}}\index{Common.h@{Common.h}!SQUARE\_ONE\_ROOT@{SQUARE\_ONE\_ROOT}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4} 
+SQUARE\+\_\+\+ONE\+\_\+\+ROOT&Square equation has one root, since discriminant equal 0. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SQUARE\_TWO\_ROOTS@{SQUARE\_TWO\_ROOTS}!Common.h@{Common.h}}\index{Common.h@{Common.h}!SQUARE\_TWO\_ROOTS@{SQUARE\_TWO\_ROOTS}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6} 
+SQUARE\+\_\+\+TWO\+\_\+\+ROOTS&Square equation has two roots, since discriminant greater than 0. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{\_\_INVALID\_COUNT@{\_\_INVALID\_COUNT}!Common.h@{Common.h}}\index{Common.h@{Common.h}!\_\_INVALID\_COUNT@{\_\_INVALID\_COUNT}}}\Hypertarget{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba296e16bd7bb5ff5b00fd45ced3221efd}\label{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba296e16bd7bb5ff5b00fd45ced3221efd} 
+\+\_\+\+\_\+\+INVALID\+\_\+\+COUNT&This count can\textquotesingle{}t be calculated. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{_common_8h_af85a768319d5344a63201adf216a0ff9}\index{Common.h@{Common.h}!User\_error\_code@{User\_error\_code}}
+\index{User\_error\_code@{User\_error\_code}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{User\_error\_code}{User\_error\_code}}
+{\footnotesize\ttfamily \label{_common_8h_af85a768319d5344a63201adf216a0ff9} 
+enum \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\+\_\+error\+\_\+code}}}
+
+Contains errors that may occur because of user \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_ERROR@{NO\_ERROR}!Common.h@{Common.h}}\index{Common.h@{Common.h}!NO\_ERROR@{NO\_ERROR}}}\Hypertarget{_common_8h_af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94}\label{_common_8h_af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94} 
+NO\+\_\+\+ERROR&No error occured. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNKNOWN\_OPTION@{UNKNOWN\_OPTION}!Common.h@{Common.h}}\index{Common.h@{Common.h}!UNKNOWN\_OPTION@{UNKNOWN\_OPTION}}}\Hypertarget{_common_8h_af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3}\label{_common_8h_af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3} 
+UNKNOWN\+\_\+\+OPTION&User specified unknown option. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NOT\_ENOUGH\_OPTION\_ARGUMENTS@{NOT\_ENOUGH\_OPTION\_ARGUMENTS}!Common.h@{Common.h}}\index{Common.h@{Common.h}!NOT\_ENOUGH\_OPTION\_ARGUMENTS@{NOT\_ENOUGH\_OPTION\_ARGUMENTS}}}\Hypertarget{_common_8h_af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133}\label{_common_8h_af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133} 
+NOT\+\_\+\+ENOUGH\+\_\+\+OPTION\+\_\+\+ARGUMENTS&User didn\textquotesingle{}t specify enough argument for an option. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INCORRECT\_OPTION\_ARGUMENT@{INCORRECT\_OPTION\_ARGUMENT}!Common.h@{Common.h}}\index{Common.h@{Common.h}!INCORRECT\_OPTION\_ARGUMENT@{INCORRECT\_OPTION\_ARGUMENT}}}\Hypertarget{_common_8h_af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348}\label{_common_8h_af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348} 
+INCORRECT\+\_\+\+OPTION\+\_\+\+ARGUMENT&User specified incorrect argument for an option. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{_common_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_common_8h_ab5c7d928ae2d7d9b2c1c4ffb983f5765}\index{Common.h@{Common.h}!are\_equal@{are\_equal}}
+\index{are\_equal@{are\_equal}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{are\_equal()}{are\_equal()}}
+{\footnotesize\ttfamily \label{_common_8h_ab5c7d928ae2d7d9b2c1c4ffb983f5765} 
+bool are\+\_\+equal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_equation__roots}{Equation\+\_\+roots}} const \texorpdfstring{$\ast$}{*}const}]{roots1\+\_\+ptr}{, }\item[{\mbox{\hyperlink{struct_equation__roots}{Equation\+\_\+roots}} const \texorpdfstring{$\ast$}{*}const}]{roots2\+\_\+ptr}{, }\item[{\mbox{\hyperlink{struct_config}{Config}} const \texorpdfstring{$\ast$}{*}const}]{config\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+Checks whether two sets of roots are equal or not
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em roots1\+\_\+ptr} & The first set of roots \\
+\hline
+\mbox{\texttt{in}}  & {\em roots2\+\_\+ptr} & The second set of roots \\
+\hline
+\mbox{\texttt{in}}  & {\em config\+\_\+ptr} & A pointer to config object that determines behaviour of program\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if sets considered equal and false otherwise 
+\end{DoxyReturn}
+\Hypertarget{_common_8h_a87174d7756c5b34b5937e5119bdaf6ec}\index{Common.h@{Common.h}!construct\_User\_error@{construct\_User\_error}}
+\index{construct\_User\_error@{construct\_User\_error}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{construct\_User\_error()}{construct\_User\_error()}}
+{\footnotesize\ttfamily \label{_common_8h_a87174d7756c5b34b5937e5119bdaf6ec} 
+\mbox{\hyperlink{struct_user__error}{User\+\_\+error}} construct\+\_\+\+User\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\+\_\+error\+\_\+code}} const}]{code}{, }\item[{size\+\_\+t const}]{str\+\_\+cnt}{, }\item[{}]{...}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+Extenranal constructor for \doxylink{struct_user__error}{User\+\_\+error}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em code} & A code of error \\
+\hline
+\mbox{\texttt{in}}  & {\em str\+\_\+cnt} & Count of strings to be passed to \doxylink{struct_user__error_a6b121cb8ec17d1734645f705377f63df}{User\+\_\+error.\+data} \\
+\hline
+\mbox{\texttt{in}}  & {\em others} & Strings to be passed to \doxylink{struct_user__error_a6b121cb8ec17d1734645f705377f63df}{User\+\_\+error.\+data} themselves\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Constructed \doxylink{struct_user__error}{User\+\_\+error} 
+\end{DoxyReturn}
+\Hypertarget{_common_8h_a84fe14fbb3436115064693cd7f9a75eb}\index{Common.h@{Common.h}!destruct\_Config@{destruct\_Config}}
+\index{destruct\_Config@{destruct\_Config}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{destruct\_Config()}{destruct\_Config()}}
+{\footnotesize\ttfamily \label{_common_8h_a84fe14fbb3436115064693cd7f9a75eb} 
+void destruct\+\_\+\+Config (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_config}{Config}} \texorpdfstring{$\ast$}{*}const}]{config\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+External destructor for \doxylink{struct_config}{Config}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in,out}}  & {\em config\+\_\+ptr} & A pointer to \doxylink{struct_config}{Config} to be destructed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_common_8h_a732b5f27948a587e2b4da737d69e5f3e}\index{Common.h@{Common.h}!destruct\_User\_error@{destruct\_User\_error}}
+\index{destruct\_User\_error@{destruct\_User\_error}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{destruct\_User\_error()}{destruct\_User\_error()}}
+{\footnotesize\ttfamily \label{_common_8h_a732b5f27948a587e2b4da737d69e5f3e} 
+void destruct\+\_\+\+User\+\_\+error (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_user__error}{User\+\_\+error}} \texorpdfstring{$\ast$}{*}const}]{error\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+External destructor for \doxylink{struct_user__error}{User\+\_\+error}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in,out}}  & {\em error\+\_\+ptr} & A pointer to \doxylink{struct_user__error}{User\+\_\+error} to be destructed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_common_8h_a6d475f39ae9988ce0622f44b3a7a2108}\index{Common.h@{Common.h}!is\_nil@{is\_nil}}
+\index{is\_nil@{is\_nil}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{is\_nil()}{is\_nil()}}
+{\footnotesize\ttfamily \label{_common_8h_a6d475f39ae9988ce0622f44b3a7a2108} 
+bool is\+\_\+nil (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}} const}]{x}{, }\item[{\mbox{\hyperlink{struct_config}{Config}} const \texorpdfstring{$\ast$}{*}const}]{config\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+Checks whether long double value equal 0 or not, taking error into account
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em x} & The number to check for equality to 0 \\
+\hline
+\mbox{\texttt{in}}  & {\em config\+\_\+ptr} & A pointer to config object that determines behaviour of program\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns true if number considered to be 0 and false otherwhise 
+\end{DoxyReturn}
+\Hypertarget{_common_8h_aab7955726b69cb5fc705ca77435cbe20}\index{Common.h@{Common.h}!strto\_Cnt\_roots@{strto\_Cnt\_roots}}
+\index{strto\_Cnt\_roots@{strto\_Cnt\_roots}!Common.h@{Common.h}}
+\doxysubsubsection{\texorpdfstring{strto\_Cnt\_roots()}{strto\_Cnt\_roots()}}
+{\footnotesize\ttfamily \label{_common_8h_aab7955726b69cb5fc705ca77435cbe20} 
+\mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots}} strto\+\_\+\+Cnt\+\_\+roots (\begin{DoxyParamCaption}\item[{char const \texorpdfstring{$\ast$}{*}const}]{str}{}\end{DoxyParamCaption})}
+
+Converts null-\/terminated string to one of \doxylink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots} states. If \doxylink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots} doesn\textquotesingle{}t contain state with this name return \+\_\+\+\_\+\+INVALID\+\_\+\+COUNT
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em str} & A string containing name of \doxylink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots} state\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns corresponding \doxylink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\+\_\+roots} object 
+\end{DoxyReturn}

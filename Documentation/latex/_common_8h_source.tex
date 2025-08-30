@@ -1,0 +1,112 @@
+\doxysection{Common.\+h}
+\hypertarget{_common_8h_source}{}\label{_common_8h_source}\index{include/Common.h@{include/Common.h}}
+\mbox{\hyperlink{_common_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ COMMON\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ COMMON\_H}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ do\_forever()\ for(;;)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\_error\_code}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94}{NO\_ERROR}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3}{UNKNOWN\_OPTION}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133}{NOT\_ENOUGH\_OPTION\_ARGUMENTS}},\ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348}{INCORRECT\_OPTION\_ARGUMENT}},\ \ \ }
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_user__error}{User\_error}}}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_user__error_aed19fb8dac8c70d1b3ebb89eafc8227e}{str\_cnt}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{struct_user__error_a6b121cb8ec17d1734645f705377f63df}{data}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\_error\_code}}\ \mbox{\hyperlink{struct_user__error_a1e56193c099e77900da17473e1eb2ade}{code}};\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_user__error_a28e3c179a86f337095088b3ca02a2b2a}{valid}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//Since\ I\ use\ dynamically\ allocated\ memeory}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//in\ my\ struct,\ I\ must\ clear\ it\ by\ call}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//"{}destruct\_User\_error"{},\ when\ I'm\ not\ going}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//to\ use\ this\ variable\ anymore.\ However}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//built-\/in\ assign-\/operator\ and\ copy-\/constructor,}}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//will\ sometimes\ implicitly\ copy\ pointers\ to\ my}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//dynamic\ array\ to\ the\ unnamed\ variables\ and}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//forget\ them\ after\ use,\ what\ may\ lead\ memory\ leaks.}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//Because\ of\ this\ I\ must\ delete\ implementation\ of}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//them,\ what\ is\ the\ use\ of\ C++\ syntaxis,\ in\ order\ to}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//avoid\ features\ appeared\ only\ in\ C++,\ and\ make\ my}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//own\ function,\ which\ copy\ one\ object\ of\ struct\ to}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//another.}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//User\_error\ (User\_error\ const\ \&)\ =\ delete;}}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{struct_user__error}{User\_error}}\ \&operator=\ (\mbox{\hyperlink{struct_user__error}{User\_error}}\ \textcolor{keyword}{const}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \mbox{\hyperlink{struct_user__error}{User\_error}}\ \mbox{\hyperlink{_common_8h_a87174d7756c5b34b5937e5119bdaf6ec}{construct\_User\_error}}(\mbox{\hyperlink{_common_8h_af85a768319d5344a63201adf216a0ff9}{User\_error\_code}}\ \textcolor{keyword}{const},\ \textcolor{keywordtype}{size\_t}\ \textcolor{keyword}{const},\ ...);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_common_8h_a732b5f27948a587e2b4da737d69e5f3e}{destruct\_User\_error}}(\mbox{\hyperlink{struct_user__error}{User\_error}}\ *\textcolor{keyword}{const});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_square__equation}{Square\_equation}}}
+\DoxyCodeLine{00068\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_square__equation_acde6bfe5e5d7f1f9ac2c21f382692ec9}{a}};\ }
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_square__equation_a3c920fada577e6e3a97af2c4a7834738}{b}};\ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_square__equation_aec0fb424b0978149bdeadf550dbd48dd}{c}};\ }
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\_roots}}}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0}{ANY\_NUMBER\_IS\_ROOT}},\ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081}{DEGENERATE\_NO\_ROOTS}},\ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d}{SQUARE\_NO\_ROOTS}},\ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a}{LINEAR\_ONE\_ROOT}},\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4}{SQUARE\_ONE\_ROOT}},\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6}{SQUARE\_TWO\_ROOTS}},\ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149ba296e16bd7bb5ff5b00fd45ced3221efd}{\_\_INVALID\_COUNT}},\ \ \ \ \ }
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\_roots}}\ \mbox{\hyperlink{_common_8h_aab7955726b69cb5fc705ca77435cbe20}{strto\_Cnt\_roots}}(\textcolor{keywordtype}{char}\ \textcolor{keyword}{const}\ *\textcolor{keyword}{const});}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_equation__roots}{Equation\_roots}}}
+\DoxyCodeLine{00094\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_equation__roots_a59b24d6f3581995abb0594f40f9c746b}{root1}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_equation__roots_ae8f52398658e237671485a6553737f01}{root2}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{_common_8h_a3c2f8466a5fed12a8c214905ac19149b}{Cnt\_roots}}\ \mbox{\hyperlink{struct_equation__roots_ab227ceec5773bfbb60b2783568f894b6}{cnt\_roots}};\ }
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_solve__test__instance}{Solve\_test\_instance}}}
+\DoxyCodeLine{00104\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{struct_square__equation}{Square\_equation}}\ \mbox{\hyperlink{struct_solve__test__instance_ae7f984578f90b1a34545f2c7213dc176}{eq}};\ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{struct_equation__roots}{Equation\_roots}}\ \mbox{\hyperlink{struct_solve__test__instance_ad4fa2930d3ec33fac0f96c0ad6bebfd5}{roots}};\ }
+\DoxyCodeLine{00107\ \};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_config}{Config}}}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \mbox{\hyperlink{struct_config_a5b5ec95a4515b620af95bfcf8aeb114d}{eps}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct_config_ad7121a6ad057fd85d338cfc0836e94ff}{test\_arr\_size}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{struct_solve__test__instance}{Solve\_test\_instance}}\ *\mbox{\hyperlink{struct_config_afcd73b7769fee82a49f7197f3328ce43}{test\_arr}};\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_config_ad34b26122208c6898b499fc6107318d7}{is\_help}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_config_a7b1d0df736739f38994ed29f54cffdf3}{is\_valid}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//Identical\ to\ User\_error\ case}}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{struct_config}{Config}}\&\ operator=(\mbox{\hyperlink{struct_config}{Config}}\ \textcolor{keyword}{const}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_common_8h_a84fe14fbb3436115064693cd7f9a75eb}{destruct\_Config}}(\mbox{\hyperlink{struct_config}{Config}}\ *\textcolor{keyword}{const});}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{static}\ \mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \textcolor{keyword}{const}\ default\_eps\ =\ 1E-\/9;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_common_8h_a6d475f39ae9988ce0622f44b3a7a2108}{is\_nil}}(\mbox{\hyperlink{_common_8h_a09bfe86a130ac3370740e01ab26b8b48}{ld}}\ \textcolor{keyword}{const},\ \mbox{\hyperlink{struct_config}{Config}}\ \textcolor{keyword}{const}\ *\textcolor{keyword}{const});}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_common_8h_ab5c7d928ae2d7d9b2c1c4ffb983f5765}{are\_equal}}(\mbox{\hyperlink{struct_equation__roots}{Equation\_roots}}\ \textcolor{keyword}{const}\ *\textcolor{keyword}{const},\ \mbox{\hyperlink{struct_equation__roots}{Equation\_roots}}\ \textcolor{keyword}{const}\ *\textcolor{keyword}{const},\ \mbox{\hyperlink{struct_config}{Config}}\ \textcolor{keyword}{const}\ *\textcolor{keyword}{const});}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

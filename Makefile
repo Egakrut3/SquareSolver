@@ -55,7 +55,7 @@ $(call make_object, /Roots_printer)
 $(call make_object, /Source)
 
 clean:
-	@rm -rf bin html
+	@rm -rf bin Documentation
 
 documentation: Doxyfile
 	@doxygen Doxyfile
