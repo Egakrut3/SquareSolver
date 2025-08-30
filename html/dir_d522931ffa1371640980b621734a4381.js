@@ -1,4 +1,0 @@
-var dir_d522931ffa1371640980b621734a4381 =
-[
-    [ "krivo", "dir_66065b8ab68adaf995f44fb3610954f0.html", "dir_66065b8ab68adaf995f44fb3610954f0" ]
-];

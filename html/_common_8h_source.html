@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: C:/Users/krivo/OneDrive/Документы/GitHub/SquareSolver/include/Common.h Source File</title>
+<title>My Project: include/Common.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -91,104 +91,149 @@ $(function(){initNavTree('_common_8h_source.html','',''); });
   <div class="headertitle"><div class="title">Common.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef COMMON_H</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define COMMON_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Colored_printf.h&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">double</span> ld;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">enum</span> User_error_code</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    NO_ERROR,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    NORMAL_TERMINATION,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    UNKNOWN_OPTION,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    NOT_ENOUGH_OPTION_ARGUMENTS,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    INCORRECT_OPTION_ARGUMENT,</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    INVALID_ERROR</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_user__error.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_user__error.html">User_error</a></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">char</span> **data;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    User_error_code code;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">int</span> str_cnt, valid;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">//Since I use dynamically allocated memeory</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">//in my struct, I must clear it by call</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">//&quot;destruct_User_error&quot;, when I&#39;m not going</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="comment">//to use this variable anymore. However</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">//built-in assign-operator and copy-constructor,</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">//will sometimes implicitly copy pointers to my</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">//dynamic array to the unnamed variables and</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">//forget them after use, what may lead memory leaks.</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment">//Because of this I must delete implementation of</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">//them, what is the use of C++ syntaxis in order to</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">//avoid features appeared only in C++, and make my</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">//own function, which copy one object of struct to</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">//another.</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">//User_error (User_error const &amp;) = delete;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_struct" href="struct_user__error.html">User_error</a> &amp;operator= (<a class="code hl_struct" href="struct_user__error.html">User_error</a> <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+<a href="_common_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifndef COMMON_H</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#define COMMON_H</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_colored__printf_8h.html">Colored_printf.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;assert.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="_common_8h.html#a645813dd06cf86e0eb63aef24cf0c5c5">   14</a></span><span class="preprocessor">#define do_forever() for(;;)</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">   19</a></span><span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">double</span> <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9">   24</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9">User_error_code</a></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94">   26</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a>,                    </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a8fa8d005ed967f303d0926d117e5ee77">   27</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a8fa8d005ed967f303d0926d117e5ee77">NORMAL_TERMINATION</a>,          </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3">   28</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3">UNKNOWN_OPTION</a>,              </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133">   29</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133">NOT_ENOUGH_OPTION_ARGUMENTS</a>, </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348">   30</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348">INCORRECT_OPTION_ARGUMENT</a>,   </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abec1ea3e06bb049a9d7ac203ca3420b6">   31</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abec1ea3e06bb049a9d7ac203ca3420b6">INVALID_ERROR</a>,               </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><a class="code hl_struct" href="struct_user__error.html">User_error</a> construct_User_error(User_error_code <span class="keyword">const</span>, <span class="keywordtype">int</span> <span class="keyword">const</span>, ...);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> destruct_User_error(<a class="code hl_struct" href="struct_user__error.html">User_error</a> *<span class="keyword">const</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> copy_User_error(<a class="code hl_struct" href="struct_user__error.html">User_error</a> *<span class="keyword">const</span>, <a class="code hl_struct" href="struct_user__error.html">User_error</a> <span class="keyword">const</span> *<span class="keyword">const</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_square__equation.html">   53</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_square__equation.html">Square_equation</a></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    ld a, b, c;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
-</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="struct_user__error.html">   37</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_user__error.html">User_error</a></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="struct_user__error.html#a6b121cb8ec17d1734645f705377f63df">   39</a></span>    <span class="keywordtype">char</span> **<a class="code hl_variable" href="struct_user__error.html#a6b121cb8ec17d1734645f705377f63df">data</a>;          </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct_user__error.html#a1e56193c099e77900da17473e1eb2ade">   40</a></span>    <a class="code hl_enumeration" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9">User_error_code</a> <a class="code hl_variable" href="struct_user__error.html#a1e56193c099e77900da17473e1eb2ade">code</a>; </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_user__error.html#a75adb1881fa5da948723d7b8807b78cd">   41</a></span>    uint8_t <a class="code hl_variable" href="struct_user__error.html#a75adb1881fa5da948723d7b8807b78cd">valid</a>;        </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="struct_user__error.html#aed19fb8dac8c70d1b3ebb89eafc8227e">   42</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_variable" href="struct_user__error.html#aed19fb8dac8c70d1b3ebb89eafc8227e">str_cnt</a>;       </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="comment">//Since I use dynamically allocated memeory</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">//in my struct, I must clear it by call</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">//&quot;destruct_User_error&quot;, when I&#39;m not going</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">//to use this variable anymore. However</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">//built-in assign-operator and copy-constructor,</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">//will sometimes implicitly copy pointers to my</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">//dynamic array to the unnamed variables and</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">//forget them after use, what may lead memory leaks.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">//Because of this I must delete implementation of</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">//them, what is the use of C++ syntaxis in order to</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">//avoid features appeared only in C++, and make my</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">//own function, which copy one object of struct to</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">//another.</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">enum</span> Cnt_roots</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    ANY_NUMBER_IS_ROOT,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    DEGENERATE_NO_ROOTS,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    SQUARE_NO_ROOTS,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    LINEAR_ONE_ROOT,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    SQUARE_ONE_ROOT,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    SQUARE_TWO_ROOTS</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_equation__roots.html">   68</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    ld root1, root2;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    Cnt_roots cnt_roots;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">//User_error (User_error const &amp;) = delete;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_struct" href="struct_user__error.html">User_error</a> &amp;operator= (<a class="code hl_struct" href="struct_user__error.html">User_error</a> <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
 </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">int</span> are_equal (<a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> <span class="keyword">const</span> *<span class="keyword">const</span>, <a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> <span class="keyword">const</span> *<span class="keyword">const</span>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="foldopen" id="foldopen00076" data-start="{" data-end="};">
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="struct_solve__test__instance.html">   76</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_solve__test__instance.html">Solve_test_instance</a></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>{</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_struct" href="struct_square__equation.html">Square_equation</a> eq;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> roots;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><a class="code hl_struct" href="struct_user__error.html">User_error</a> <a class="code hl_function" href="_common_8h.html#a87174d7756c5b34b5937e5119bdaf6ec">construct_User_error</a>(<a class="code hl_enumeration" href="_common_8h.html#af85a768319d5344a63201adf216a0ff9">User_error_code</a> <span class="keyword">const</span>, <span class="keywordtype">size_t</span> <span class="keyword">const</span>, ...);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">void</span> <a class="code hl_function" href="_common_8h.html#a732b5f27948a587e2b4da737d69e5f3e">destruct_User_error</a>(<a class="code hl_struct" href="struct_user__error.html">User_error</a> *<span class="keyword">const</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> <a class="code hl_function" href="_common_8h.html#abc853a82587cd4f41d4280e30ed1dc7d">copy_User_error</a>(<a class="code hl_struct" href="struct_user__error.html">User_error</a> *<span class="keyword">const</span>, <a class="code hl_struct" href="struct_user__error.html">User_error</a> <span class="keyword">const</span> *<span class="keyword">const</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="};">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="struct_square__equation.html">   71</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_square__equation.html">Square_equation</a></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_square__equation.html#acde6bfe5e5d7f1f9ac2c21f382692ec9">   73</a></span>    <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a> <a class="code hl_variable" href="struct_square__equation.html#acde6bfe5e5d7f1f9ac2c21f382692ec9">a</a>; </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_square__equation.html#a3c920fada577e6e3a97af2c4a7834738">   74</a></span>    <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a> <a class="code hl_variable" href="struct_square__equation.html#a3c920fada577e6e3a97af2c4a7834738">b</a>; </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="struct_square__equation.html#aec0fb424b0978149bdeadf550dbd48dd">   75</a></span>    <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a> <a class="code hl_variable" href="struct_square__equation.html#aec0fb424b0978149bdeadf550dbd48dd">c</a>; </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
 </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="astruct_equation__roots_html"><div class="ttname"><a href="struct_equation__roots.html">Equation_roots</a></div><div class="ttdef"><b>Definition</b> Common.h:69</div></div>
-<div class="ttc" id="astruct_solve__test__instance_html"><div class="ttname"><a href="struct_solve__test__instance.html">Solve_test_instance</a></div><div class="ttdef"><b>Definition</b> Common.h:77</div></div>
-<div class="ttc" id="astruct_square__equation_html"><div class="ttname"><a href="struct_square__equation.html">Square_equation</a></div><div class="ttdef"><b>Definition</b> Common.h:54</div></div>
-<div class="ttc" id="astruct_user__error_html"><div class="ttname"><a href="struct_user__error.html">User_error</a></div><div class="ttdoc">Contains error of user.</div><div class="ttdef"><b>Definition</b> Common.h:24</div></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149b">   81</a></span><span class="keyword">enum</span> <a class="code hl_enumeration" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149b">Cnt_roots</a></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0">   83</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0">ANY_NUMBER_IS_ROOT</a>,  </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081">   84</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081">DEGENERATE_NO_ROOTS</a>, </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d">   85</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d">SQUARE_NO_ROOTS</a>,     </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a">   86</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a">LINEAR_ONE_ROOT</a>,     </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4">   87</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4">SQUARE_ONE_ROOT</a>,     </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6">   88</a></span>    <a class="code hl_enumvalue" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6">SQUARE_TWO_ROOTS</a>,    </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="};">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="struct_equation__roots.html">   94</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="struct_equation__roots.html#a59b24d6f3581995abb0594f40f9c746b">   96</a></span>    <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a> <a class="code hl_variable" href="struct_equation__roots.html#a59b24d6f3581995abb0594f40f9c746b">root1</a>;            </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="struct_equation__roots.html#ae8f52398658e237671485a6553737f01">   97</a></span>    <a class="code hl_typedef" href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a> <a class="code hl_variable" href="struct_equation__roots.html#ae8f52398658e237671485a6553737f01">root2</a>;            </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="struct_equation__roots.html#ab227ceec5773bfbb60b2783568f894b6">   98</a></span>    <a class="code hl_enumeration" href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149b">Cnt_roots</a> <a class="code hl_variable" href="struct_equation__roots.html#ab227ceec5773bfbb60b2783568f894b6">cnt_roots</a>; </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>};</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>int8_t <a class="code hl_function" href="_common_8h.html#ab3358fa818432987b204001ce7d3ce6b">are_equal</a>(<a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> <span class="keyword">const</span> *<span class="keyword">const</span>, <a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> <span class="keyword">const</span> *<span class="keyword">const</span>);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="};">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="struct_solve__test__instance.html">  106</a></span><span class="keyword">struct </span><a class="code hl_struct" href="struct_solve__test__instance.html">Solve_test_instance</a></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="struct_solve__test__instance.html#ae7f984578f90b1a34545f2c7213dc176">  108</a></span>    <a class="code hl_struct" href="struct_square__equation.html">Square_equation</a> <a class="code hl_variable" href="struct_solve__test__instance.html#ae7f984578f90b1a34545f2c7213dc176">eq</a>;   </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="struct_solve__test__instance.html#ad4fa2930d3ec33fac0f96c0ad6bebfd5">  109</a></span>    <a class="code hl_struct" href="struct_equation__roots.html">Equation_roots</a> <a class="code hl_variable" href="struct_solve__test__instance.html#ad4fa2930d3ec33fac0f96c0ad6bebfd5">roots</a>; </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>};</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_colored__printf_8h_html"><div class="ttname"><a href="_colored__printf_8h.html">Colored_printf.h</a></div></div>
+<div class="ttc" id="a_common_8h_html_a09bfe86a130ac3370740e01ab26b8b48"><div class="ttname"><a href="_common_8h.html#a09bfe86a130ac3370740e01ab26b8b48">ld</a></div><div class="ttdeci">long double ld</div><div class="ttdef"><b>Definition</b> Common.h:19</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149b"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149b">Cnt_roots</a></div><div class="ttdeci">Cnt_roots</div><div class="ttdef"><b>Definition</b> Common.h:82</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba045c444f08b9c5cb028a7e156ce595b0">ANY_NUMBER_IS_ROOT</a></div><div class="ttdeci">@ ANY_NUMBER_IS_ROOT</div><div class="ttdoc">Any number is root of trivial equation.</div><div class="ttdef"><b>Definition</b> Common.h:83</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba20b792c8a4d882038385a5a29c7e2081">DEGENERATE_NO_ROOTS</a></div><div class="ttdeci">@ DEGENERATE_NO_ROOTS</div><div class="ttdoc">Degenerate equation has no roots.</div><div class="ttdef"><b>Definition</b> Common.h:84</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba5ec61966cbc24fda713355940dffaf3d">SQUARE_NO_ROOTS</a></div><div class="ttdeci">@ SQUARE_NO_ROOTS</div><div class="ttdoc">Square equation has no roots, because discriminant less than 0.</div><div class="ttdef"><b>Definition</b> Common.h:85</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba78ea01936dac8e02e5bea3e2529f073a">LINEAR_ONE_ROOT</a></div><div class="ttdeci">@ LINEAR_ONE_ROOT</div><div class="ttdoc">Linear equation has one root.</div><div class="ttdef"><b>Definition</b> Common.h:86</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba83bdf881a84edc0ca26f0267cb2b46e4">SQUARE_ONE_ROOT</a></div><div class="ttdeci">@ SQUARE_ONE_ROOT</div><div class="ttdoc">Square equation has one root, since discriminant equal 0.</div><div class="ttdef"><b>Definition</b> Common.h:87</div></div>
+<div class="ttc" id="a_common_8h_html_a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6"><div class="ttname"><a href="_common_8h.html#a3c2f8466a5fed12a8c214905ac19149ba869fb5dc34c215e0d8662a6d56d1f3b6">SQUARE_TWO_ROOTS</a></div><div class="ttdeci">@ SQUARE_TWO_ROOTS</div><div class="ttdoc">Square equation.</div><div class="ttdef"><b>Definition</b> Common.h:88</div></div>
+<div class="ttc" id="a_common_8h_html_a732b5f27948a587e2b4da737d69e5f3e"><div class="ttname"><a href="_common_8h.html#a732b5f27948a587e2b4da737d69e5f3e">destruct_User_error</a></div><div class="ttdeci">void destruct_User_error(User_error *const)</div><div class="ttdef"><b>Definition</b> Common.cpp:50</div></div>
+<div class="ttc" id="a_common_8h_html_a87174d7756c5b34b5937e5119bdaf6ec"><div class="ttname"><a href="_common_8h.html#a87174d7756c5b34b5937e5119bdaf6ec">construct_User_error</a></div><div class="ttdeci">User_error construct_User_error(User_error_code const, size_t const,...)</div><div class="ttdef"><b>Definition</b> Common.cpp:18</div></div>
+<div class="ttc" id="a_common_8h_html_ab3358fa818432987b204001ce7d3ce6b"><div class="ttname"><a href="_common_8h.html#ab3358fa818432987b204001ce7d3ce6b">are_equal</a></div><div class="ttdeci">int8_t are_equal(Equation_roots const *const, Equation_roots const *const)</div><div class="ttdef"><b>Definition</b> Common.cpp:117</div></div>
+<div class="ttc" id="a_common_8h_html_abc853a82587cd4f41d4280e30ed1dc7d"><div class="ttname"><a href="_common_8h.html#abc853a82587cd4f41d4280e30ed1dc7d">copy_User_error</a></div><div class="ttdeci">void copy_User_error(User_error *const, User_error const *const)</div><div class="ttdef"><b>Definition</b> Common.cpp:74</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9">User_error_code</a></div><div class="ttdeci">User_error_code</div><div class="ttdef"><b>Definition</b> Common.h:25</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a102cec89baf6a0400310b4790d6c3348">INCORRECT_OPTION_ARGUMENT</a></div><div class="ttdeci">@ INCORRECT_OPTION_ARGUMENT</div><div class="ttdoc">User specified incorrect argument for an option.</div><div class="ttdef"><b>Definition</b> Common.h:30</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9a8fa8d005ed967f303d0926d117e5ee77"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9a8fa8d005ed967f303d0926d117e5ee77">NORMAL_TERMINATION</a></div><div class="ttdeci">@ NORMAL_TERMINATION</div><div class="ttdoc">No error occured, but program must be finished.</div><div class="ttdef"><b>Definition</b> Common.h:27</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9aad8ee384ba6bcb65110b067f9e8b1133">NOT_ENOUGH_OPTION_ARGUMENTS</a></div><div class="ttdeci">@ NOT_ENOUGH_OPTION_ARGUMENTS</div><div class="ttdoc">User didn&#39;t specify enough argument for an option.</div><div class="ttdef"><b>Definition</b> Common.h:29</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9abec1ea3e06bb049a9d7ac203ca3420b6"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abec1ea3e06bb049a9d7ac203ca3420b6">INVALID_ERROR</a></div><div class="ttdeci">@ INVALID_ERROR</div><div class="ttdoc">Error, that couldn&#39;t have occured.</div><div class="ttdef"><b>Definition</b> Common.h:31</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9abf350750d0d4fabd8954c0f1e9bbae94">NO_ERROR</a></div><div class="ttdeci">@ NO_ERROR</div><div class="ttdoc">No error occured.</div><div class="ttdef"><b>Definition</b> Common.h:26</div></div>
+<div class="ttc" id="a_common_8h_html_af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3"><div class="ttname"><a href="_common_8h.html#af85a768319d5344a63201adf216a0ff9adc08a79c7c127088f04130cf2e6d19e3">UNKNOWN_OPTION</a></div><div class="ttdeci">@ UNKNOWN_OPTION</div><div class="ttdoc">User specified unknown option.</div><div class="ttdef"><b>Definition</b> Common.h:28</div></div>
+<div class="ttc" id="astruct_equation__roots_html"><div class="ttname"><a href="struct_equation__roots.html">Equation_roots</a></div><div class="ttdef"><b>Definition</b> Common.h:95</div></div>
+<div class="ttc" id="astruct_equation__roots_html_a59b24d6f3581995abb0594f40f9c746b"><div class="ttname"><a href="struct_equation__roots.html#a59b24d6f3581995abb0594f40f9c746b">Equation_roots::root1</a></div><div class="ttdeci">ld root1</div><div class="ttdoc">Contains the first root (if exist)</div><div class="ttdef"><b>Definition</b> Common.h:96</div></div>
+<div class="ttc" id="astruct_equation__roots_html_ab227ceec5773bfbb60b2783568f894b6"><div class="ttname"><a href="struct_equation__roots.html#ab227ceec5773bfbb60b2783568f894b6">Equation_roots::cnt_roots</a></div><div class="ttdeci">Cnt_roots cnt_roots</div><div class="ttdoc">Contains information about count of roots.</div><div class="ttdef"><b>Definition</b> Common.h:98</div></div>
+<div class="ttc" id="astruct_equation__roots_html_ae8f52398658e237671485a6553737f01"><div class="ttname"><a href="struct_equation__roots.html#ae8f52398658e237671485a6553737f01">Equation_roots::root2</a></div><div class="ttdeci">ld root2</div><div class="ttdoc">Contains the second root (if exist)</div><div class="ttdef"><b>Definition</b> Common.h:97</div></div>
+<div class="ttc" id="astruct_solve__test__instance_html"><div class="ttname"><a href="struct_solve__test__instance.html">Solve_test_instance</a></div><div class="ttdef"><b>Definition</b> Common.h:107</div></div>
+<div class="ttc" id="astruct_solve__test__instance_html_ad4fa2930d3ec33fac0f96c0ad6bebfd5"><div class="ttname"><a href="struct_solve__test__instance.html#ad4fa2930d3ec33fac0f96c0ad6bebfd5">Solve_test_instance::roots</a></div><div class="ttdeci">Equation_roots roots</div><div class="ttdoc">Correct roots of this equation.</div><div class="ttdef"><b>Definition</b> Common.h:109</div></div>
+<div class="ttc" id="astruct_solve__test__instance_html_ae7f984578f90b1a34545f2c7213dc176"><div class="ttname"><a href="struct_solve__test__instance.html#ae7f984578f90b1a34545f2c7213dc176">Solve_test_instance::eq</a></div><div class="ttdeci">Square_equation eq</div><div class="ttdoc">An equation to be solved.</div><div class="ttdef"><b>Definition</b> Common.h:108</div></div>
+<div class="ttc" id="astruct_square__equation_html"><div class="ttname"><a href="struct_square__equation.html">Square_equation</a></div><div class="ttdef"><b>Definition</b> Common.h:72</div></div>
+<div class="ttc" id="astruct_square__equation_html_a3c920fada577e6e3a97af2c4a7834738"><div class="ttname"><a href="struct_square__equation.html#a3c920fada577e6e3a97af2c4a7834738">Square_equation::b</a></div><div class="ttdeci">ld b</div><div class="ttdoc">Coefficient before x^1.</div><div class="ttdef"><b>Definition</b> Common.h:74</div></div>
+<div class="ttc" id="astruct_square__equation_html_acde6bfe5e5d7f1f9ac2c21f382692ec9"><div class="ttname"><a href="struct_square__equation.html#acde6bfe5e5d7f1f9ac2c21f382692ec9">Square_equation::a</a></div><div class="ttdeci">ld a</div><div class="ttdoc">Coefficient before x^2.</div><div class="ttdef"><b>Definition</b> Common.h:73</div></div>
+<div class="ttc" id="astruct_square__equation_html_aec0fb424b0978149bdeadf550dbd48dd"><div class="ttname"><a href="struct_square__equation.html#aec0fb424b0978149bdeadf550dbd48dd">Square_equation::c</a></div><div class="ttdeci">ld c</div><div class="ttdoc">Coefficient before x^0.</div><div class="ttdef"><b>Definition</b> Common.h:75</div></div>
+<div class="ttc" id="astruct_user__error_html"><div class="ttname"><a href="struct_user__error.html">User_error</a></div><div class="ttdef"><b>Definition</b> Common.h:38</div></div>
+<div class="ttc" id="astruct_user__error_html_a1e56193c099e77900da17473e1eb2ade"><div class="ttname"><a href="struct_user__error.html#a1e56193c099e77900da17473e1eb2ade">User_error::code</a></div><div class="ttdeci">User_error_code code</div><div class="ttdoc">Code of an error.</div><div class="ttdef"><b>Definition</b> Common.h:40</div></div>
+<div class="ttc" id="astruct_user__error_html_a6b121cb8ec17d1734645f705377f63df"><div class="ttname"><a href="struct_user__error.html#a6b121cb8ec17d1734645f705377f63df">User_error::data</a></div><div class="ttdeci">char ** data</div><div class="ttdoc">An array of strings containing information about error.</div><div class="ttdef"><b>Definition</b> Common.h:39</div></div>
+<div class="ttc" id="astruct_user__error_html_a75adb1881fa5da948723d7b8807b78cd"><div class="ttname"><a href="struct_user__error.html#a75adb1881fa5da948723d7b8807b78cd">User_error::valid</a></div><div class="ttdeci">uint8_t valid</div><div class="ttdoc">Indicates whether this object is valid or not.</div><div class="ttdef"><b>Definition</b> Common.h:41</div></div>
+<div class="ttc" id="astruct_user__error_html_aed19fb8dac8c70d1b3ebb89eafc8227e"><div class="ttname"><a href="struct_user__error.html#aed19fb8dac8c70d1b3ebb89eafc8227e">User_error::str_cnt</a></div><div class="ttdeci">size_t str_cnt</div><div class="ttdoc">Count strings in data.</div><div class="ttdef"><b>Definition</b> Common.h:42</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a href="dir_66065b8ab68adaf995f44fb3610954f0.html">krivo</a></li><li class="navelem"><a href="dir_233ba08614d4c6e39275a75e073397df.html">OneDrive</a></li><li class="navelem"><a href="dir_ca836051407346a2da28e187ea5e2bb5.html">Документы</a></li><li class="navelem"><a href="dir_8bab6045d98a9784c14ec1641327840c.html">GitHub</a></li><li class="navelem"><a href="dir_adaae0bc8e30c981804d2b3c9fecf1eb.html">SquareSolver</a></li><li class="navelem"><a href="dir_3b258098efef608239bc999ec2da4796.html">include</a></li><li class="navelem"><b>Common.h</b></li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="_common_8h.html">Common.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>
