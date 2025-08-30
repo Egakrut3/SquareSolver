@@ -1,0 +1,27 @@
+/*! \file */
+
+#include "Colored_printf.h"
+#include <stdio.h>
+#include <stdarg.h>
+
+/*!
+ *Is identical to printf, but uses color
+
+ *\param[in] color The desired color for printf
+ *\param[in] format The format to passed to printf
+ *\param[in, out] others The arguments to passed to printf
+
+ *\return Returns value equal to value returned by printf
+ */
+int colored_printf(Color const color, char const *const format, ...)
+{
+    printf("\033[0%dm", 30 + color);
+
+    va_list arg_list = nullptr;
+    va_start(arg_list, format);
+    int const ret_value = vprintf(format, arg_list);
+    va_end(arg_list);
+
+    printf("\033[0m");
+    return ret_value;
+}
