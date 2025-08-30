@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-int8_t make_Solve_test();
+bool make_Solve_test(Config const *const);
 
 #endif

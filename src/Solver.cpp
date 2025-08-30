@@ -8,14 +8,15 @@
  *Solves degenerate equation
 
  *\param[in] a Coefficient before x^0
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
 
  *\return Returns roots of this equation
  */
-static Equation_roots degenerate_solver(ld const a)
+static Equation_roots degenerate_solver(ld const a, Config const *const config_ptr)
 {
     assert(isfinite(a));
 
-    if (is_nil(a))
+    if (is_nil(a, config_ptr))
     {
         return Equation_roots{NAN, NAN, ANY_NUMBER_IS_ROOT};
     }
@@ -28,14 +29,15 @@ static Equation_roots degenerate_solver(ld const a)
 
  *\param[in] a Coefficient before x^1
  *\param[in] b Coefficient before x^0
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
 
  *\return Returns roots of this equation
  */
-static Equation_roots linear_solver(ld const a, ld const b)
+static Equation_roots linear_solver(ld const a, ld const b, Config const *const config_ptr)
 {
     assert(isfinite(a) and isfinite(b));
 
-    if (is_nil(a))
+    if (is_nil(a, config_ptr))
     {
         return degenerate_solver(b);
     }
@@ -49,21 +51,22 @@ static Equation_roots linear_solver(ld const a, ld const b)
  *\param[in] a Coefficient before x^2
  *\param[in] b Coefficient before x^1
  *\param[in] c Coefficient before x^0
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
 
  *\return Returns roots of this equation
  */
-static Equation_roots square_solver(ld const a, ld const b, ld const c)
+static Equation_roots square_solver(ld const a, ld const b, ld const c, Config const *const config_ptr)
 {
     assert(isfinite(a) and isfinite(b) and isfinite(c));
 
-    if (is_nil(a))
+    if (is_nil(a, config_ptr))
     {
         return linear_solver(b, c);
     }
 
     ld const D2 = b * b - 4 * a * c;
 
-    if (is_nil(D2))
+    if (is_nil(D2, config_ptr))
     {
         return Equation_roots{-b / (2 * a), NAN, SQUARE_ONE_ROOT};
     }
@@ -83,12 +86,13 @@ static Equation_roots square_solver(ld const a, ld const b, ld const c)
  *Solves the not greater than square equation
 
  *\param[in] eq A pointer to an equation to be solved
+ *\param[in] config_ptr A pointer to config object that determines behaviour of program
 
  *\return Returns roots of this equation
  */
-Equation_roots solve(Square_equation const *const eq)
+Equation_roots solve(Square_equation const *const eq, Config const *const config_ptr)
 {
     assert(eq);
 
-    return square_solver(eq->a, eq->b, eq->c);
+    return square_solver(eq->a, eq->b, eq->c, config_ptr);
 }

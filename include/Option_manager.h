@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-User_error set_config(size_t const, char const* const *const);
+User_error set_config(size_t const, char const* const *const, Config *const);
 
 #endif

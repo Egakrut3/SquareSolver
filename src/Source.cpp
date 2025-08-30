@@ -15,15 +15,15 @@
 /*!
  *A macros to handle an error, destruct it and finish the program if necessary by one row
  */
-#define HANDLE_USER_ERROR(__ERROR) do {   \
-    User_error cur_error = __ERROR;       \
-    if (handle_user_error(&cur_error))    \
-    {                                     \
-        destruct_User_error(&cur_error);  \
-        return 0;                         \
-    }                                     \
-                                          \
-    destruct_User_error(&cur_error);      \
+#define HANDLE_USER_ERROR(__ERROR) do {
+    User_error cur_error = __ERROR;
+    if (handle_user_error(&cur_error))
+    {
+        destruct_User_error(&cur_error);
+        return 0;
+    }
+
+    destruct_User_error(&cur_error);
 } while(0)
 
 /*!
@@ -32,8 +32,11 @@
  *\param[in] argc Count of command-line arguments
  *\param[in] argv Command-line arguments themselves
  */
-int main(int const argc, char **argv)
+int main(int const argc, char const *const * const argv)
 {
+    Config cur_config = Config{0, 0, nullptr, false, true};
+    HANDLE_USER_ERROR(set_config(argc, argv, &cur_config));
+
 #ifdef _DEBUG
 
     if (make_Solve_test())
@@ -43,12 +46,11 @@ int main(int const argc, char **argv)
 
 #endif
 
-    HANDLE_USER_ERROR(set_config(argc, argv));
-
-    Square_equation eq = scan_square_coefficients();
-    Equation_roots roots = solve(&eq);
+    Square_equation const eq = scan_square_coefficients();
+    Equation_roots const roots = solve(&eq);
     print_roots(&roots);
 
-    printf("\n\n\nCOMMIT GITHUB");
+    destruct_Config(&cur_config);
+    printf("\n\n\nCOMMIT GITHUB\n\n");
     return 0;
 }
