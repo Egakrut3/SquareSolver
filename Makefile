@@ -18,10 +18,10 @@ CXX_FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-
 -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE -D__USE_MINGW_ANSI_STDIO
 
 TARGET = $(addprefix $(BIN_DIR), /square.exe)
-#OBJ = /Colored_printf /Common /Calculation_constants /Option_manager /User_error_handler \
+#OBJ = /Colored_printf /Common /Option_manager /User_error_handler \
 	  /Coefficient_scaner /Solver /Solver_test /Roots_printer /Source
 
-OBJ = /Common /Calculation_constants /Option_manager /User_error_handler \
+OBJ = /Common /Option_manager /User_error_handler \
 	  /Coefficient_scaner /Solver /Solver_test /Roots_printer /Source
 
 make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \

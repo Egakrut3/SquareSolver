@@ -2,7 +2,6 @@
 
 #include "Solver.h"
 #include <math.h>
-#include "Calculation_constants.h"
 
 /*!
  *Solves degenerate equation
@@ -39,7 +38,7 @@ static Equation_roots linear_solver(ld const a, ld const b, Config const *const 
 
     if (is_nil(a, config_ptr))
     {
-        return degenerate_solver(b);
+        return degenerate_solver(b, config_ptr);
     }
 
     return Equation_roots{-b / a, NAN, LINEAR_ONE_ROOT};
@@ -61,7 +60,7 @@ static Equation_roots square_solver(ld const a, ld const b, ld const c, Config c
 
     if (is_nil(a, config_ptr))
     {
-        return linear_solver(b, c);
+        return linear_solver(b, c, config_ptr);
     }
 
     ld const D2 = b * b - 4 * a * c;

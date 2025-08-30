@@ -3,6 +3,8 @@
 //TODO - Make file in-/out- put
 //TODO - Make colored printf library
 //TODO - Merge branches in git
+//TODO - check assert
+//TODO - check dynamic memory
 
 #include "Common.h"
 #include "Option_manager.h"
@@ -15,16 +17,16 @@
 /*!
  *A macros to handle an error, destruct it and finish the program if necessary by one row
  */
-#define HANDLE_USER_ERROR(__ERROR) do {
-    User_error cur_error = __ERROR;
-    if (handle_user_error(&cur_error))
-    {
-        destruct_User_error(&cur_error);
-        return 0;
-    }
-
-    destruct_User_error(&cur_error);
-} while(0)
+#define HANDLE_USER_ERROR(__ERROR) do {  \
+    User_error cur_error = __ERROR;      \
+    if (handle_user_error(&cur_error))   \
+    {                                    \
+        destruct_User_error(&cur_error); \
+        return 0;                        \
+    }                                    \
+                                         \
+    destruct_User_error(&cur_error);     \
+} while(false)
 
 /*!
  *An entry point for the program
@@ -39,7 +41,7 @@ int main(int const argc, char const *const * const argv)
 
 #ifdef _DEBUG
 
-    if (make_Solve_test())
+    if (make_Solve_test(&cur_config))
     {
         return 1;
     }
@@ -47,7 +49,7 @@ int main(int const argc, char const *const * const argv)
 #endif
 
     Square_equation const eq = scan_square_coefficients();
-    Equation_roots const roots = solve(&eq);
+    Equation_roots const roots = solve(&eq, &cur_config);
     print_roots(&roots);
 
     destruct_Config(&cur_config);

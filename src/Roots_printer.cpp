@@ -50,7 +50,8 @@ void print_roots(Equation_roots const *const roots_ptr)
             printf("Two roots: %LG and %LG since discriminant is greater, than 0\n",
                    roots_ptr->root1, roots_ptr->root2);
             break;
-
+            
+        case __INVALID_COUNT:
         default:
             assert(0);
 

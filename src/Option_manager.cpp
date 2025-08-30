@@ -3,7 +3,6 @@
 #include "Option_manager.h"
 #include <string.h>
 #include <stdlib.h>
-#include "Calculation_constants.h"
 #include <math.h>
 
 /*!
@@ -35,9 +34,10 @@ enum Option
 
     config_ptr->is_help = true;
     printf("Usage: square.exe [options] file...\nOptions:\n"
-           "\t%-10s %s\n" "\t%-10s %s\n", //TODO -
+           "\t%-10s %s\n" "\t%-10s %s\n" "\t%-10s %s\n",
            "--help", "Display the information",
-           "--eps" , "Sets the value of eps (acceptable error) by followed parameter");
+           "--eps" , "Sets the value of eps (acceptable error) by followed parameter",
+           "--test", "Tells path to file containing test fo solve function");
     return construct_User_error(NO_ERROR, 0);
 }
 
@@ -74,22 +74,23 @@ enum Option
     }
     else
     {
-        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 2,
+        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
                                     "--eps", **str_ptr, "Must be finite floating-point value");
     }
 }
 
-[[nodiscard]] User_error set_test_arr_from_file(char const *const path,
+[[nodiscard]] static User_error set_test_arr_from_file(char const *const path,
                                                 Config *const config_ptr)
 {
-    //TODO - make error check
+    assert(path and config_ptr);
 
     FILE *test_file = nullptr;
-    fopen_s(&test_file, **str_ptr_ptr, "r");
+    fopen_s(&test_file, path, "r");
 
     if (!test_file)
     {
-        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 2, "-- "//TODO -
+        return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
+                                    "--test", path, "Can't open this file or it doesn't exist");
     }
 
     int check_input = 0;
@@ -98,28 +99,49 @@ enum Option
     assert(check_input == 1);
 
     free(config_ptr->test_arr);
-    config_ptr->test_arr = calloc(config->test_arr_size, sizeof Solve_test_instance);
+    config_ptr->test_arr = (Solve_test_instance *)calloc(config_ptr->test_arr_size,
+                                                         sizeof(Solve_test_instance));
 
     assert(config_ptr->test_arr);
 
-    for (size_t i = 0; i < config->test_arr_size; ++i)
+    for (size_t i = 0; i < config_ptr->test_arr_size; ++i)
     {
         ld a = NAN, b = NAN, c = NAN,
            root1 = NAN, root2 = NAN;
-        char *str_Cnt_roots = nullptr;
-        check_input = fscanf("%LG%LG%LG%LG%LG%30s",
+        char *str_Cnt_roots = (char *)calloc(30, sizeof(char));
+        check_input = fscanf(test_file, "%LG%LG%LG%LG%LG%30s",
                &a, &b, &c,
-               &root1, &root2, &str_Cnt_roots);
+               &root1, &root2, str_Cnt_roots);
 
-        assert(check_input == 6 and isfinite(a) and isfinite(b) and isfinite(c) and
-               isfinite(root1) and isfinite(root2));
+        if (check_input != 6 or !isfinite(a) or !isfinite(b) or !isfinite(c))
+        {
+            return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3,
+                                        "--test", path,
+                                        "This file doesn't satisfy format of test: "
+                                        "first value means count of tests, "
+                                        "next values means tests themselves. "
+                                        "Each test consist of 3 finite floating-point values specifying "
+                                        "coefficients of the equation, "
+                                        "2 floating-point values specifying correct roots of the "
+                                        "equation (possible NAN if corresponding root doesn't exist) and "
+                                        "1 string specifying corresponding state of Cnt_roots enum");
+        }
+
+        Cnt_roots cnt_roots = strto_Cnt_roots(str_Cnt_roots);
+        free(str_Cnt_roots);
+        if (cnt_roots == __INVALID_COUNT)
+        {
+            return construct_User_error(INCORRECT_OPTION_ARGUMENT, 3, "--test", path,
+                                        "This file contains invalid string in place where "
+                                        "Cnt_roots state was expected");
+        }
 
         config_ptr->test_arr[i] = Solve_test_instance{Square_equation{a, b, c},
-                                                      Equation_roots{root1, root2,
-                                                      strto_Cnt_roots(cnt_roots)}};
+                                                      Equation_roots{root1, root2, cnt_roots}};
     }
 
-    return;
+    fclose(test_file);
+    return construct_User_error(NO_ERROR, 0);
 }
 
 /*!
@@ -223,7 +245,7 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
     {
         assert(str);
 
-        User_error new_error = select_option_setter(&str, end_str, config_ptr, used_option);
+        User_error new_error = select_option_setter(&str, end_str, config_ptr, used_options);
         if (new_error.code != NO_ERROR)
         {
             return new_error;
@@ -242,7 +264,13 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
 
 #ifdef _DEBUG
 
-        set_test_arr_from_file("Solve_test_case", config_ptr);
+        User_error new_error = set_test_arr_from_file("Solve_test_case", config_ptr);
+        if (new_error.code != NO_ERROR)
+        {
+            return new_error;
+        }
+
+        destruct_User_error(&new_error);
 #else
 
         config_ptr->test_arr_size = 0;

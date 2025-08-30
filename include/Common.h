@@ -18,13 +18,6 @@
 typedef long double ld;
 
 /*!
- *Value for eps (acceptable error) if user doesn't specify any
- */
-static ld const default_eps = 1E-9;
-
-bool is_nil(ld const, Config const *const);
-
-/*!
  *Contains errors that may occur because of user
  */
 enum User_error_code
@@ -88,7 +81,8 @@ enum Cnt_roots
     SQUARE_NO_ROOTS,     ///<Square equation has no roots, because discriminant less than 0
     LINEAR_ONE_ROOT,     ///<Linear equation has one root
     SQUARE_ONE_ROOT,     ///<Square equation has one root, since discriminant equal 0
-    SQUARE_TWO_ROOTS,    ///<Square equation
+    SQUARE_TWO_ROOTS,    ///<Square equation has two roots, since discriminant greater than 0
+    __INVALID_COUNT,     ///<This count can't be calculated
 };
 
 Cnt_roots strto_Cnt_roots(char const *const);
@@ -102,8 +96,6 @@ struct Equation_roots
     ld root2;            ///<Contains the second root (if exist)
     Cnt_roots cnt_roots; ///<Contains information about count of roots
 };
-
-bool are_equal(Equation_roots const *const, Equation_roots const *const);
 
 /*!
  *Contains a single test for solve function
@@ -128,5 +120,14 @@ struct Config
 };
 
 void destruct_Config(Config *const);
+
+/*!
+ *Value for eps (acceptable error) if user doesn't specify any
+ */
+static ld const default_eps = 1E-9;
+
+bool is_nil(ld const, Config const *const);
+
+bool are_equal(Equation_roots const *const, Equation_roots const *const, Config const *const);
 
 #endif
