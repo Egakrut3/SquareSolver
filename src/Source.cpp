@@ -48,6 +48,11 @@ int main(int const argc, char const *const * const argv)
 
 #endif
 
+    if (cur_config.is_help)
+    {
+        return 0;
+    }
+
     Square_equation const eq = scan_square_coefficients();
     Equation_roots const roots = solve(&eq, &cur_config);
     print_roots(&roots);

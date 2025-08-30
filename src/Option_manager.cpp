@@ -37,7 +37,7 @@ enum Option
            "\t%-10s %s\n" "\t%-10s %s\n" "\t%-10s %s\n",
            "--help", "Display the information",
            "--eps" , "Sets the value of eps (acceptable error) by followed parameter",
-           "--test", "Tells path to file containing test fo solve function");
+           "--test", "Tells path to file containing test fo solve function by folowed parameter");
     return construct_User_error(NO_ERROR, 0);
 }
 
