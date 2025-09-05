@@ -1,17 +1,8 @@
-/*! \file */
-
 #include "Solver_test.h"
 #include <math.h>
 #include "Solver.h"
 #include "Roots_printer.h"
 
-/*!
- *Checks solve function for errors
-
- *\param[in] config_ptr A pointer to config object that determines behaviour of program
-
- *\return Returns true if any error was found and 0 otherwise
- */
 bool make_Solve_test(Config const *const config_ptr)
 {
     assert(config_ptr);

@@ -1,7 +1,5 @@
 /*! \file */
 
-//TODO - Make colored printf library
-
 #include "Common.h"
 #include "Option_manager.h"
 #include "User_error_handler.h"

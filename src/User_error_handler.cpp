@@ -1,14 +1,5 @@
-/*! \file */
-
 #include "User_error_handler.h"
 
-/*!
- *Handles an User_error object
-
- *\param[in] error_ptr A pointer to an error to be handled
-
- *\return Returns true if the program must be finished and false otherwise
- */
 bool handle_user_error(User_error const *const error_ptr)
 {
     assert(error_ptr and error_ptr->valid);

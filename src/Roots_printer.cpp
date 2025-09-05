@@ -1,14 +1,6 @@
-/*! \file */
-
 #include "Roots_printer.h"
 #include <math.h>
 
-/*!
- *Prints roots from Equation_roots to output stream
-
- *\param[in] roots_ptr A pointer to set of roots to be printed
- *\param[in] config_ptr A pointer to config object that determines behaviour of program
- */
 void print_roots(Equation_roots const *const roots_ptr, Config const *const config_ptr)
 {
     assert(roots_ptr and config_ptr);

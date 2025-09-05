@@ -81,14 +81,6 @@ static Equation_roots square_solver(ld const a, ld const b, ld const c, Config c
     return Equation_roots{(-b - D) / (2 * a), (-b + D) / (2 * a), SQUARE_TWO_ROOTS};
 }
 
-/*!
- *Solves the not greater than square equation
-
- *\param[in] eq A pointer to an equation to be solved
- *\param[in] config_ptr A pointer to Config object that determines behaviour of program
-
- *\return Returns roots of this equation
- */
 Equation_roots solve(Square_equation const *const eq, Config const *const config_ptr)
 {
     assert(eq and config_ptr and config_ptr->is_valid);

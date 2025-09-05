@@ -1,17 +1,7 @@
-/*! \file */
-
 #include "Coefficient_scaner.h"
 #include <math.h>
 
-/*!
- *Forms Square_equation object by coefficients from input stream
-
- *\param[out] eq_ptr A pointer to square equation to be scanned
- *\param[in] config_ptr A pointer to config object that determines behaviour of program
-
- *\return Return User_error object containing information about error occured (possible no error)
- */
-User_error scan_square_coefficients(Square_equation *const eq_ptr, Config const *const config_ptr) //TODO - possible make infinite loop when stdin
+[[nodiscard]] User_error scan_square_coefficients(Square_equation *const eq_ptr, Config const *const config_ptr) //TODO - possible make infinite loop when stdin
 {
     assert(eq_ptr and config_ptr);
 

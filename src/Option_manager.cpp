@@ -321,15 +321,6 @@ static User_error (*const set_option_arr[__OPTION_COUNT])(char const *const **co
     return construct_User_error(NO_ERROR, 0);
 }
 
-/*!
- *Parses command-line flags
-
- *\param[in] argc Command-line flags count
- *\param[in] argv Command-line flags themselves
- *\param[out] config_ptr A pointer to config object to be setted
-
- *\return Information about error made by user (possible no error)
- */
 [[nodiscard]] User_error set_config(size_t const argc, char const *const *const argv,
                                     Config *const config_ptr)
 {
