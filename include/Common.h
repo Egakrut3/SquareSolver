@@ -55,12 +55,12 @@ struct User_error
     //another.
 
     //User_error (User_error const &) = delete;
-    User_error &operator= (User_error const &) = delete;
+    User_error &operator= (User_error &) = delete;
 };
 
-User_error construct_User_error(User_error_code const, size_t const, ...);
+User_error construct_User_error(User_error_code, size_t, ...);
 
-void destruct_User_error(User_error *const);
+void destruct_User_error(User_error *);
 
 /*!
  *Contains coefficients of square equation
@@ -86,7 +86,7 @@ enum Cnt_roots
     __INVALID_COUNT,     ///<This count can't be calculated
 };
 
-Cnt_roots strto_Cnt_roots(char const *const);
+Cnt_roots strto_Cnt_roots(char const *);
 
 /*!
  *Contains roots of an equation
@@ -119,18 +119,18 @@ struct Config
     bool is_valid;                 ///<Indicates whether this object is valid or not
 
     //Identical to User_error case
-    Config& operator=(Config const&) = delete;
+    Config& operator=(Config &) = delete;
 };
 
-void destruct_Config(Config *const);
+void destruct_Config(Config *);
 
 /*!
  *Value for eps (acceptable error) if user doesn't specify any
  */
 static ld const default_eps = 1E-9;
 
-bool is_nil(ld const, Config const *const);
+bool is_nil(ld, Config const *);
 
-bool are_equal(Equation_roots const *const, Equation_roots const *const, Config const *const);
+bool are_equal(Equation_roots const *, Equation_roots const *, Config const *);
 
 #endif
