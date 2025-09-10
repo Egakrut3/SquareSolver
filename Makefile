@@ -20,7 +20,7 @@ CXX_FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-
 TARGET = $(addprefix $(BIN_DIR), square.exe)
 
 OBJ = Common Option_manager User_error_handler Coefficient_scaner \
-	  Solver Solver_test Roots_printer Source
+	  Solver Solver_test Roots_printer main
 
 make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \
 @$(CXX) $(CXX_FLAGS) -c $$< -I $(H_DIR) -o $$@
@@ -52,7 +52,7 @@ $(call make_object, Solver_test)
 
 $(call make_object, Roots_printer)
 
-$(call make_object, Source)
+$(call make_object, main)
 
 clean:
 	@rm -rf bin Documentation
