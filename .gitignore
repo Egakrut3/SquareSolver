@@ -1,5 +1,5 @@
 *.txt
 bin/
-Documentation
+Documentation/
 Colored_printf.cpp
 Colored_printf.h
