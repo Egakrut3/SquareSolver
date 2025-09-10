@@ -1,12 +1,12 @@
-BIN_DIR = ./bin
+BIN_DIR = ./bin/
 BIN_SUF = .o
 make_bin_path = $(addprefix $(BIN_DIR), $(addsuffix $(BIN_SUF), $(1)))
 
-SRC_DIR = ./src
+SRC_DIR = ./src/
 SRC_SUF = .cpp
 make_src_path = $(addprefix $(SRC_DIR), $(addsuffix $(SRC_SUF), $(1)))
 
-H_DIR = ./include
+H_DIR = ./include/
 
 CXX = g++
 CXX_FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline   \
@@ -17,10 +17,10 @@ CXX_FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-
 -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits           \
 -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE -D__USE_MINGW_ANSI_STDIO
 
-TARGET = $(addprefix $(BIN_DIR), /square.exe)
+TARGET = $(addprefix $(BIN_DIR), square.exe)
 
-OBJ = /Common /Option_manager /User_error_handler /Coefficient_scaner \
-	  /Solver /Solver_test /Roots_printer /Source
+OBJ = Common Option_manager User_error_handler Coefficient_scaner \
+	  Solver Solver_test Roots_printer Source
 
 make_object = $(call make_bin_path, $(1)) : $(call make_src_path, $(1)); \
 @$(CXX) $(CXX_FLAGS) -c $$< -I $(H_DIR) -o $$@
@@ -36,23 +36,23 @@ prepare :
 
 #TODO - Don't works
 
-$(call make_object, /Common)
+$(call make_object, Common)
 
-$(call make_object, /Calculation_constants)
+$(call make_object, Calculation_constants)
 
-$(call make_object, /Option_manager)
+$(call make_object, Option_manager)
 
-$(call make_object, /User_error_handler)
+$(call make_object, User_error_handler)
 
-$(call make_object, /Coefficient_scaner)
+$(call make_object, Coefficient_scaner)
 
-$(call make_object, /Solver)
+$(call make_object, Solver)
 
-$(call make_object, /Solver_test)
+$(call make_object, Solver_test)
 
-$(call make_object, /Roots_printer)
+$(call make_object, Roots_printer)
 
-$(call make_object, /Source)
+$(call make_object, Source)
 
 clean:
 	@rm -rf bin Documentation
