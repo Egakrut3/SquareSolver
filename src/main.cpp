@@ -27,6 +27,8 @@
 
  *\param[in] argc Count of command-line arguments
  *\param[in] argv Command-line arguments themselves
+
+ *\return Returns error code of running this program
  */
 int main(int const argc, char const *const * const argv)
 {
